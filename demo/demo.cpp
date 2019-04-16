@@ -1,15 +1,14 @@
 #include "serial.h"
 #include "logger.h"
-#include "helper.h"
-
-#include <iostream>
+#include "customLibs/helper.h"
 
 int main(){
 
+	DEBUG_LOG << "main entered" << '\n';
+
 	Logger myLogger;
 	Serial mySerial;
-
-    std::cout << DATE << '\n';
+	Helper myHelper;
 
 	return 0;
 }

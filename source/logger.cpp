@@ -1,10 +1,10 @@
 #include "logger.h"
-#include <iostream>
+#include "customLibs/helper.h"
 
 Logger::Logger(){
-	std::cout << "constructor" << '\n';
+	STATE_LOG << "constructor" << '\n';
 }
 
 Logger::~Logger(){
-	std::cout << "deconstructor" << '\n';
+	STATE_LOG << "deconstructor" << '\n';
 }

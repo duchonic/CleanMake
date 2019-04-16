@@ -1,10 +1,10 @@
 #include "serial.h"
-#include <iostream>
+#include "customLibs/helper.h"
 
 Serial::Serial(){
-	std::cout << "constructor" << '\n';
+	STATE_LOG << "constructor" << '\n';
 }
 
 Serial::~Serial(){
-	std::cout << "deconstructor" << '\n';
+	STATE_LOG << "deconstructor" << '\n';
 }
