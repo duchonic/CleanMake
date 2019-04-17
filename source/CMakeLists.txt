@@ -4,6 +4,13 @@ add_library (
 	Source
 	logger.cpp
 	serial.cpp
+	xmlEventParser.cpp
+	SysOperation.cpp
+	SingletonCollector.cpp
+	OperationFactory.cpp
+	XMLMessage.cpp
+	ConnectionFactory.cpp
+	SocketConnection.cpp
 )
 
 # Make sure the compiler can find include files for our Hello library

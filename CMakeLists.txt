@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 11)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -19,9 +19,20 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	add_definitions(-DIS_VISUAL_STUDIO)
 endif()
 
-include_directories(
-	./
-)
+include_directories( ./ )
+
+if(WIN32)
+    message(STATUS "add windows include folders")
+	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+		include_directories(
+			"C:/cLibs/xmlwrapp/include"
+		)
+	else()
+		include_directories(
+			"C:/cLibs/xmlwrapp/include"
+		)
+	endif()
+endif()
 
 add_subdirectory (source)
 add_subdirectory (customLibs)

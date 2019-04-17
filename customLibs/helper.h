@@ -8,7 +8,9 @@
 #endif
 
 #define DEBUG_LOG (std::cout << ":debug: " << __FILENAME__ << '/' << __LINE__ << ' ')
+#define INFO_LOG (std::cout << ":info: " << __FILENAME__ << '/' << __LINE__ << ' ')
 #define STATE_LOG (std::cout << ":state: " << __FILENAME__ << '/' << __LINE__ << ' ')
+#define ERROR_LOG (std::cout << ":error: " << __FILENAME__ << '/' << __LINE__ << ' ')
 
 class Helper{
 
