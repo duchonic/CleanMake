@@ -13,8 +13,9 @@ int test2() {
 
 TEST_CASE("TEST3", "[single-file]") {
 
-	REQUIRE(myHelper.DATE == 2019);
+  DEBUG_LOG << "test3 running" << '\n';
 
+	REQUIRE(myHelper.DATE == 2019);
 	REQUIRE(test2() == 3);
 	REQUIRE(1 == 1);
 	REQUIRE(2 == 2);
@@ -39,9 +40,3 @@ SCENARIO("vectors size test2", "[vector]") {
 		}
 	}
 }
-
-// That's it
-
-// Compile implementation of Catch for use with files that do contain tests:
-// - g++ -std=c++11 -Wall -I$(CATCH_SINGLE_INCLUDE) -c 000-CatchMain.cpp
-// - cl -EHsc -I%CATCH_SINGLE_INCLUDE% -c 000-CatchMain.cpp

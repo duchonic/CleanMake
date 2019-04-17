@@ -6,13 +6,23 @@ project (cross)
 
 set (CMAKE_CXX_STANDARD 17)
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	message(STATUS "Made with Linux")
+	add_definitions(-DIS_LINUX)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+	message(STATUS "Made with Windows")
+	add_definitions(-DIS_WINDOWS)
+endif()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	message(STATUS "Visual Studio C++")
+	add_definitions(-DIS_VISUAL_STUDIO)
+endif()
+
 include_directories(
 	./
 )
 
-# Recurse into the "Hello" and "Demo" subdirectories. This does not actually
-# cause another cmake executable to run. The same process will walk through
-# the project's entire directory structure.
 add_subdirectory (source)
 add_subdirectory (customLibs)
 add_subdirectory (demo)

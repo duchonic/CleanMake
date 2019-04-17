@@ -1,7 +1,11 @@
 #include <iostream>
+#include <cstring>
 
-//#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#ifdef IS_WINDOWS
+	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+#else
+	#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#endif
 
 #define DEBUG_LOG (std::cout << ":debug: " << __FILENAME__ << '/' << __LINE__ << ' ')
 #define STATE_LOG (std::cout << ":state: " << __FILENAME__ << '/' << __LINE__ << ' ')

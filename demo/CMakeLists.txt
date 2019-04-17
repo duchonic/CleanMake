@@ -6,4 +6,3 @@ add_executable (demo demo.cpp)
 # public include directories we will use those link directories when building
 # helloDemo
 target_link_libraries (demo LINK_PUBLIC Source CustomLib)
-
