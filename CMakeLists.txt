@@ -23,13 +23,18 @@ include_directories( ./ )
 
 if(WIN32)
     message(STATUS "add windows include folders")
+
 	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		include_directories(
 			"C:/cLibs/xmlwrapp/include"
+			"C:/cLibs/libxml2-2.7.8.win32/include"
+			"C:/cLibs/iconv-1.9.2.win32/include"
 		)
 	else()
 		include_directories(
 			"C:/cLibs/xmlwrapp/include"
+			"C:/cLibs/libxml2-2.7.8.win32/include"
+			"C:/cLibs/iconv-1.9.2.win32/include"
 		)
 	endif()
 endif()

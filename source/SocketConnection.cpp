@@ -32,6 +32,8 @@ SocketConnection::~SocketConnection()
 
 void SocketConnection::initialize()
 {
+	DEBUG_LOG << "initialize socket connection" << '\n';
+
     _socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
     memset(&_pRemoteAddress, 0, sizeof(_pRemoteAddress));       /* Clear struct */
     _pRemoteAddress.sin_family = AF_INET;						/* Internet/IP */
@@ -42,15 +44,31 @@ void SocketConnection::initialize()
 
 bool SocketConnection::connect()
 {
-	if (listen(_socket, MAXPENDING) < 0)
-		return false;
+
+
+	if (listen(_socket, MAXPENDING) < 0) {
+		DEBUG_LOG << "socket error: " << listen(_socket, MAXPENDING) << '\n';
+		//return false;
+	}
+
+#ifdef IS_WINDOWS
+	int clientlen = sizeof(_pClientAddress);
+#elif
 	unsigned int clientlen = sizeof(_pClientAddress);
+#endif
+
     DEBUG_LOG << "Waiting for SYS connection..." << '\n';
-    /* Wait for client connection */
-    //if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
-    //	return false;
-    //}
+    
+	/* Wait for client connection */
+    if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
+    	return false;
+    }
+
+#ifdef IS_WINDOWS
     INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#elif IS_LINUX
+	INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#endif
 	return true;
 }
 

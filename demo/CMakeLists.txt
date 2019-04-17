@@ -7,35 +7,41 @@ add_executable (demo demo.cpp)
 # helloDemo
 
 if (WIN32)
-    message(STATUS "add windows libraries")
+	message(STATUS "Search Windows libraries")
+	find_library(WSOCK32_LIBRARY wsock32)
+  find_library(WS2_32_LIBRARY ws2_32)
+	find_package(LibXml2 REQUIRED)
+	message(STATUS "Add windows libraries")
+
 	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		target_link_libraries (
-			demo 
-			LINK_PUBLIC 
-			Source 
+			demo
+			LINK_PUBLIC
+			Source
 			CustomLib
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			#wsock32 
+			LibXml2
+			wsock32
 			ws2_32
 		)
 	else()
+		message(STATUS "target link MINGW")
 		target_link_libraries (
-			demo 
-			LINK_PUBLIC 
-			Source 
+			demo
+			LINK_PUBLIC
+			Source
 			CustomLib
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			#wsock32 
+			"C:/cLibs/libxml2-2.7.8.win32/lib/libxml2.lib"
+			wsock32
 			ws2_32
 		)
 	endif()
 else()
 	target_link_libraries (
-		demo 
-		LINK_PUBLIC 
-		Source 
+		demo
+		LINK_PUBLIC
+		Source
 		CustomLib
 	)
 endif()
-
-

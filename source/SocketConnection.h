@@ -39,7 +39,11 @@
 
 // End of message tooken
 static const char MESSAGE_END[] = "</msg>";
+#ifdef IS_LINUX
 static const int PORT_NBR = 1280;
+#elif IS_WINDOWS
+static const int PORT_NBR = 1898;
+#endif
 static const int MAXPENDING = 5;
 static const int BUFF_SIZE = 32768;
 

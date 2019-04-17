@@ -6,6 +6,8 @@
 #include "interface/IOperation.h"
 #include "OperationFactory.h"
 
+#include <windows.h>
+
 struct periodic_info
 {
 	int timer_fd;
@@ -31,7 +33,19 @@ int main() {
 	Serial mySerial;
 	Helper myHelper;
 
+#ifdef IS_VISUAL_STUDIO
+	::_sleep(1000);
+#else
+  Sleep(1000);
+#endif
+
 	setUp();
+
+	#ifdef IS_VISUAL_STUDIO
+		::_sleep(1000);
+	#else
+	  Sleep(1000);
+	#endif
 
 	while (!bAbort) {
 		getNextMsg(&info);
@@ -41,16 +55,11 @@ int main() {
 }
 
 
-
 // Set up and initialize
 void setUp() {
-
 	DEBUG_LOG << "setup started" << std::endl;
-
 	// initialize operation (dispatcher)
 	OperationFactory::getOperation()->initDriver();
-
-
 }
 
 
@@ -60,12 +69,18 @@ void getNextMsg(periodic_info* info) {
 	//if (PeriodicCycle::getInstance()->isPeriodicCycleEnabled()) {
 	if (true) {
 		mainProcedure();
-		::_sleep(1000);
+		#ifdef IS_VISUAL_STUDIO
+			::_sleep(1000);
+		#else
+		  Sleep(1000);
+		#endif
 	}
 }
 
 // The main procedure
 void mainProcedure() {
+
+
 
 	IOperation* pOperation = OperationFactory::getOperation();
 
@@ -73,8 +88,8 @@ void mainProcedure() {
 		// process operation
 		pOperation->runDriver();
 
-		try {
 
+		try {
 			std::string xmlMessage{ "<xml><item>dkdk</item></xml>" };
 			DEBUG_LOG << xmlMessage << '\n';
 			XMLEventParser parser(xmlMessage.c_str());
@@ -82,7 +97,7 @@ void mainProcedure() {
 			if (pOperation->hasMessageArrived()) {
 			//	IMessage* pMessage = pOperation->getMessage();
 			//	IMessageProcessor* processor = MessageProcessorFactory::getMessageProcessor();
-			//	
+			//
 			//	processor->processMessage(pMessage);
 				INFO_LOG << "msg arrived" << '\n';
 			}
