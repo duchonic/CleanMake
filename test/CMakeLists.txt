@@ -1,8 +1,7 @@
 add_executable (
-	cpp_test
+	testing
 	catchMain.cpp
-	../customLibs/helper.cpp
-	../source/timeUtil.cpp
+	../customLibs/timeUtil.cpp
+	../source/serial.cpp
 	catchSerial.cpp
 )
-

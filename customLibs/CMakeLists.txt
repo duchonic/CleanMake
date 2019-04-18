@@ -3,6 +3,8 @@
 add_library (
 	CustomLib
 	helper.cpp
+	timer.cpp
+	timeUtil.cpp
 )
 
 # Make sure the compiler can find include files for our Hello library

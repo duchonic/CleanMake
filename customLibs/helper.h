@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 
-#include "source/timeUtil.h"
+#include "customLibs/timeUtil.h"
 
 #ifdef IS_WINDOWS
 	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
@@ -16,6 +16,7 @@
 #define STATE_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  <<  ":state: " << __FILENAME__ << ':' << __LINE__ << ' ')
 #define ERROR_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":error: " << __FILENAME__ << ':' << __LINE__ << ' ')
 #define CLASS_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":class: " << __FILENAME__ << ':' << __LINE__ << ' ')
+#define TEST_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":test: " << __FILENAME__ << ':' << __LINE__ << ' ')
 
 
 class Helper{
@@ -23,7 +24,6 @@ class Helper{
 public:
   Helper();
   ~Helper();
-  const int DATE = 2019;
 
 private:
 

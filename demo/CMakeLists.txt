@@ -18,7 +18,10 @@ if (WIN32)
 			demo
 			LINK_PUBLIC
 			Source
+			Factory
 			CustomLib
+			Communication
+			Collector
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
 			LibXml2
 			wsock32
@@ -30,7 +33,10 @@ if (WIN32)
 			demo
 			LINK_PUBLIC
 			Source
+			Factory
 			CustomLib
+			Communication
+			Collector
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
 			"C:/cLibs/libxml2-2.7.8.win32/lib/libxml2.lib"
 			wsock32
@@ -42,6 +48,9 @@ else()
 		demo
 		LINK_PUBLIC
 		Source
+		Factory
 		CustomLib
+		Communication
+		Collector
 	)
 endif()

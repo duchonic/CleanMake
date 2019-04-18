@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -18,7 +18,7 @@ endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	message(STATUS "Visual Studio C++")
-	add_definitions(-DIS_VISUAL_STUDIO)
+	add_definitions(-DIS_VISUAL_STUDIO -D_HAS_AUTO_PTR_ETC)
 endif()
 
 include_directories( ./ )
@@ -49,5 +49,5 @@ add_subdirectory (test)
 enable_testing()
 add_test(
 	TEST1 catch_test
-	COMMAND $<TARGET_FILE:cpp_test> --success
+	COMMAND $<TARGET_FILE:testing> --success
 )

@@ -35,14 +35,6 @@
 #include "interface/IConnection.h"
 #include "interface/ISingleton.h"
 
-//
-// SocketConnection
-// Linux implementation of a (passive) socket
-// It is specified for the XML communication protocol used
-// in the project GSM 1100 NT (particularly we assume, that
-// all received datagrams ends with a specified tooken.
-//
-
 // End of message tooken
 static const char MESSAGE_END[] = "</msg>";
 #ifdef IS_LINUX

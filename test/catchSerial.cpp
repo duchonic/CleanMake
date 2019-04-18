@@ -3,19 +3,32 @@
 
 #include "catch.h"
 #include "customLibs/helper.h"
+#include "source/serial.h"
+#include <functional>
 
-Helper myHelper;
+
+Serial mySerial;
 
 int test2() {
 	int blub = 3;
 	return blub;
 }
 
+std::function<int()> f = nullptr;
+
+
 TEST_CASE("TEST3", "[single-file]") {
 
-  DEBUG_LOG << "test3 running" << '\n';
+	try {
+		f();
+	}
+	catch (const std::bad_function_call & e) {
+		TEST_LOG << "e.what(): " << e.what() << '\n';
+	}
 
-	REQUIRE(myHelper.DATE == 2019);
+	REQUIRE( mySerial.write(std::string("1234567890")) == false);
+	REQUIRE( mySerial.write(std::string("12345678901")) == true);
+
 	REQUIRE(test2() == 3);
 	REQUIRE(1 == 1);
 	REQUIRE(2 == 2);

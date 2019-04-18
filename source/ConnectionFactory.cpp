@@ -1,7 +1,7 @@
 #include "ConnectionFactory.h"
 
 // connections
-#include <SocketConnection.h>
+#include "source/SocketConnection.h"
 
 // Constructor
 ConnectionFactory::ConnectionFactory() {

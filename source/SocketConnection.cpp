@@ -106,7 +106,7 @@ void SocketConnection::disconnect()
 bool SocketConnection::canReceiveData()
 {
 
-#ifdef asdf
+#ifdef IS_WINDOWS
 	char recvbuf[DEFAULT_BUFLEN];
 	int recvbuflen = DEFAULT_BUFLEN;
 	int iResult;

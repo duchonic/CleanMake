@@ -52,14 +52,21 @@ Serial::~Serial() {
 
 }
 
-void Serial::write(std::string message) {
-#ifdef IS_WINDOWS
-	WriteFile(
-		hCom,
-		message.c_str(),
-		message.size(),
-		&dwRet,
-		NULL
-	);
-#endif
+bool Serial::write(std::string message) {
+
+	if (message.size() <= 10) {
+		#ifdef IS_WINDOWS
+				WriteFile(
+					hCom,
+					message.c_str(),
+					message.size(),
+					&dwRet,
+					NULL
+				);
+		#endif
+		return false;
+	}
+	else {
+		return true;
+	}
 }

@@ -14,7 +14,7 @@ public:
 	Serial();
 	~Serial();
 
-	void write(std::string message);
+	bool write(std::string message);
 
 private:
 

@@ -1,11 +1,11 @@
 #include "serial.h"
-#include "logger.h"
 #include "xmlEventParser.h"
 #include "customLibs/helper.h"
 
 #include "interface/IOperation.h"
 #include "OperationFactory.h"
 
+#include <functional>
 #ifdef IS_MAC
 	#include <unistd.h>
 #elif IS_LINUX
@@ -35,7 +35,6 @@ int main() {
 	DEBUG_LOG << "main entered" << '\n';
 	struct periodic_info info;
 
-	Logger myLogger;
 	Serial mySerial;
 	Helper myHelper;
 
@@ -44,7 +43,7 @@ int main() {
 #elif IS_LINUX
 	sleep(1);
 #elif IS_VISUAL_STUDIO
-	::_sleep(1000);
+	Sleep(1000);
 #else
   Sleep(1000);
 #endif
@@ -56,7 +55,7 @@ int main() {
 	#elif IS_LINUX
 		sleep(1);
 	#elif IS_VISUAL_STUDIO
-		::_sleep(1000);
+		Sleep(1000);
 	#else
 	  Sleep(1000);
 	#endif
@@ -90,7 +89,7 @@ void getNextMsg(periodic_info* info) {
 #elif IS_LINUX
 		sleep(1);
 #elif IS_VISUAL_STUDIO
-		::_sleep(1000);
+		Sleep(1000);
 #else
 		Sleep(1000);
 #endif
@@ -125,7 +124,7 @@ void mainProcedure() {
 				//processor->processMessage(pMessage);
 			}
 		}
-		catch (std::exception & ex) {
+		catch (...) {
 			ERROR_LOG << "Exception in main Procedure" << '\n';
 		}
 
