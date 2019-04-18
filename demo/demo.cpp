@@ -8,6 +8,8 @@
 
 #ifdef IS_MAC
 	#include <unistd.h>
+#elif IS_LINUX
+	#include <unistd.h>
 #else
 	#include <windows.h>
 #endif
@@ -39,6 +41,8 @@ int main() {
 
 #ifdef IS_MAC
 	sleep(1);
+#elif IS_LINUX
+	sleep(1);
 #elif IS_VISUAL_STUDIO
 	::_sleep(1000);
 #else
@@ -48,6 +52,8 @@ int main() {
 	setUp();
 
 	#ifdef IS_MAC
+		sleep(1);
+	#elif IS_LINUX
 		sleep(1);
 	#elif IS_VISUAL_STUDIO
 		::_sleep(1000);
@@ -78,11 +84,13 @@ void getNextMsg(periodic_info* info) {
 	if (true) {
 		mainProcedure();
 #ifdef IS_MAC
-			sleep(1);
+		sleep(1);
+#elif IS_LINUX
+		sleep(1);
 #elif IS_VISUAL_STUDIO
-			::_sleep(1000);
+		::_sleep(1000);
 #else
-		  Sleep(1000);
+		Sleep(1000);
 #endif
 	}
 }
@@ -101,6 +109,8 @@ void mainProcedure() {
 
 #ifdef IS_MAC
 
+#elif IS_LINUX
+	
 #else
 			XMLEventParser parser(xmlMessage.c_str());
 #endif

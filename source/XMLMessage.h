@@ -5,14 +5,12 @@
 
 #ifdef IS_MAC
 
+#elif IS_LINUX
+
 #else
   #include <xmlwrapp/node.h>
 #endif
 
-//
-// XMLMessage
-// Place a description of the class here
-//
 class XMLMessage : public IMessage {
 
 public:
@@ -43,6 +41,8 @@ private:
 
 	// XML stuff
 #ifdef IS_MAC
+
+#elif IS_LINUX
 
 #else
     xml::node _root;

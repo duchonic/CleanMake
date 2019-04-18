@@ -46,9 +46,14 @@
 static const char MESSAGE_END[] = "</msg>";
 #ifdef IS_LINUX
 static const int PORT_NBR = 1280;
+#elif IS_MAC
+static const int PORT_NBR = 1981;
 #elif IS_WINDOWS
-static const int PORT_NBR = 1898;
+static const int PORT_NBR = 1979;
+#else
+static const int PORT_NBR = 2019; // default prot addr
 #endif
+
 static const int MAXPENDING = 5;
 static const int BUFF_SIZE = 32768;
 

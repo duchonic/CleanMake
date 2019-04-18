@@ -2,6 +2,8 @@
 
 #ifdef IS_MAC
 
+#elif IS_LINUX
+
 #else
 	#include <xmlwrapp/event_parser.h>
 #endif
@@ -68,6 +70,8 @@ static const std::string DATA_SUBTYPE_STATISTICS = "statistic";
 
 #ifdef IS_MAC
 	class XMLEventParser  {
+#elif IS_LINUX
+	class XMLEventParser  {
 #else
 	class XMLEventParser : public xml::event_parser {
 #endif
@@ -77,7 +81,10 @@ public:
 	~XMLEventParser();
 
 protected:
+
 #ifdef IS_MAC
+
+#elif IS_LINUX
 
 #else
 	virtual bool start_element(const std::string& name, const attrs_type& attrs);

@@ -61,6 +61,8 @@ IMessage* SysOperation::getMessage() {
 
 #ifdef IS_MAC
   return NULL;
+#elif IS_LINUX
+  return NULL;
 #else
 	static XMLMessage message;
 	message.setMessageString(_messageString);
