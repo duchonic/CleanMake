@@ -61,8 +61,10 @@ int main() {
 	  Sleep(1000);
 	#endif
 
+	mySerial.write("\n mainloop start");
 	while (!bAbort) {
 		getNextMsg(&info);
+		mySerial.write(".");
 	}
 
 	return 0;
@@ -99,31 +101,28 @@ void getNextMsg(periodic_info* info) {
 void mainProcedure() {
 	IOperation* pOperation = OperationFactory::getOperation();
 
+	INFO_LOG << "main loop running..." << '\n';
+	
 	try {
 		// process operation
 		pOperation->runDriver();
 
 		try {
-			std::string xmlMessage{ "<xml><item>dkdk</item></xml>" };
-			DEBUG_LOG << xmlMessage << '\n';
 
 #ifdef IS_MAC
 
 #elif IS_LINUX
 	
 #else
-			XMLEventParser parser(xmlMessage.c_str());
-#endif
 
+#endif
 			if (pOperation->hasMessageArrived()) {
-			//	IMessage* pMessage = pOperation->getMessage();
-			//	IMessageProcessor* processor = MessageProcessorFactory::getMessageProcessor();
-			//
-			//	processor->processMessage(pMessage);
-				INFO_LOG << "msg arrived" << '\n';
-			}
-			else {
-				INFO_LOG << "NO MESSAGE" << '\n';
+				IMessage* pMessage = pOperation->getMessage();
+
+				//INFO_LOG << "message: " << pMessage->toString() << '\n';
+				
+				//IMessageProcessor* processor = MessageProcessorFactory::getMessageProcessor();
+				//processor->processMessage(pMessage);
 			}
 		}
 		catch (std::exception & ex) {

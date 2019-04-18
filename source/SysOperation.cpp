@@ -42,17 +42,7 @@ SysOperation* SysOperation::getInstance() {
 
 
 bool SysOperation::hasMessageArrived() const {
-	static bool hasArrived = false;
-
-	if (hasArrived){
-		hasArrived = false;
-		return false;
-	}
-	else {
-		hasArrived = true;
-		return true;
-	}
-	//return _bMessageArrived;
+	return _bMessageArrived;
 }
 
 // getMessage
@@ -101,6 +91,13 @@ void SysOperation::initDriver() {
 // <<online>>
 void SysOperation::runDriver() {
 
+#ifdef IS_WINDOWS
+	// First check for new message
+	if (_pConnection->canReceiveData()) {
+
+	}
+#else
+
 	// First check for new message
 	if (_pConnection->canReceiveData()) {
 		if (_pConnection->receiveData(_messageString)) {
@@ -119,6 +116,9 @@ void SysOperation::runDriver() {
 		delete pMessage;
 	}
 	_vecMessages.erase(_vecMessages.begin(), _vecMessages.end());
+#endif
+
+
 }
 
 // reset the drive to a defined state

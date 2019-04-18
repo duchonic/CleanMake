@@ -27,6 +27,8 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 		SocketConnection.cpp
 		XMLMessage.cpp
 		xmlEventParser.cpp
+		timer.cpp
+		timeUtil.cpp
 	)
 else()
 	add_library (

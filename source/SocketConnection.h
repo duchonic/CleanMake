@@ -1,11 +1,12 @@
 #pragma once
 
 #ifdef IS_WINDOWS
-#include <winsock2.h>
-#include <stdio.h>
+	#include <winsock2.h>
+	#include <ws2tcpip.h>
+	#include <stdio.h>
 #ifdef IS_VISUAL_STUDIO
-	#include <BaseTsd.h>
-	typedef SSIZE_T ssize_t;
+		#include <BaseTsd.h>
+		typedef SSIZE_T ssize_t;
 #endif
 #endif
 
@@ -45,11 +46,11 @@
 // End of message tooken
 static const char MESSAGE_END[] = "</msg>";
 #ifdef IS_LINUX
-static const int PORT_NBR = 1280;
+static const int PORT_NBR = 1971;
 #elif IS_MAC
 static const int PORT_NBR = 1981;
 #elif IS_WINDOWS
-static const int PORT_NBR = 1979;
+static const int PORT_NBR = 23;
 #else
 static const int PORT_NBR = 2019; // default prot addr
 #endif
