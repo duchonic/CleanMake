@@ -46,11 +46,11 @@
 // End of message tooken
 static const char MESSAGE_END[] = "</msg>";
 #ifdef IS_LINUX
-static const int PORT_NBR = 1971;
+static const int PORT_NBR = 1979;
 #elif IS_MAC
 static const int PORT_NBR = 1981;
 #elif IS_WINDOWS
-static const int PORT_NBR = 23;
+static const int PORT_NBR = 1978;
 #else
 static const int PORT_NBR = 2019; // default prot addr
 #endif

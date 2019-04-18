@@ -1,6 +1,12 @@
 #include "timeUtil.h"
 #include <stdlib.h>
-#include <sys/utime.h>
+
+#ifdef IS_LINUX
+	#include <sys/time.h>
+#else
+	#include <sys/utime.h>
+#endif
+
 #include <sstream>
 
 #include <iomanip>
@@ -62,7 +68,7 @@ char* TimeUtil::getCurrentDateTimeString()
 	static char timeString[255];
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
-	sprintf_s(timeString, "%d:%d:%d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+	sprintf(timeString, "%d:%d:%d", tm.tm_hour, tm.tm_min, tm.tm_sec);
 	return timeString;
 }
 

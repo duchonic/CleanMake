@@ -5,11 +5,11 @@
 #include <cassert>
 #include "SingletonCollector.h"
 
-#include <Windows.h>
-
-#define DEFAULT_PORT "27015"
-#define DEFAULT_BUFLEN 512
-
+#ifdef IS_WINDOWS
+	#include <Windows.h>
+	#define DEFAULT_PORT "27015"
+	#define DEFAULT_BUFLEN 512
+#endif
 
 SocketConnection* SocketConnection::_instance = 0;
 
