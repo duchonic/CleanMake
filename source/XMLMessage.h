@@ -1,7 +1,13 @@
 #pragma once
 
+
 #include "interface/IMessage.h"
-#include <xmlwrapp/node.h>
+
+#ifdef IS_MAC
+
+#else
+  #include <xmlwrapp/node.h>
+#endif
 
 //
 // XMLMessage
@@ -36,7 +42,11 @@ public:
 private:
 
 	// XML stuff
+#ifdef IS_MAC
+
+#else
     xml::node _root;
+#endif
 
 	// message string
 	std::string _strMessage;

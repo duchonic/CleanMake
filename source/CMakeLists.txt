@@ -7,10 +7,10 @@ add_library (
 	SysOperation.cpp
 	SingletonCollector.cpp
 	OperationFactory.cpp
-	XMLMessage.cpp
 	ConnectionFactory.cpp
 	SocketConnection.cpp
-	xmlEventParser.cpp
+  #XMLMessage.cpp
+	#xmlEventParser.cpp
 )
 
 # Make sure the compiler can find include files for our Hello library

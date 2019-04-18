@@ -3,24 +3,29 @@
 #ifdef IS_WINDOWS
 #include <winsock2.h>
 #include <stdio.h>
-
 #ifdef IS_VISUAL_STUDIO
 	#include <BaseTsd.h>
 	typedef SSIZE_T ssize_t;
 #endif
+#endif
 
+#ifdef IS_MAC
+	#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <netdb.h>
+	#include <net/if_dl.h>
 #endif
 
 #ifdef IS_LINUX
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <arpa/inet.h>
-#include <net/if.h>
-#include <netinet/tcp.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
+	#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <sys/time.h>
+	#include <arpa/inet.h>
+	#include <net/if.h>
+	#include <netinet/tcp.h>
+	#include <netinet/in.h>
+	#include <unistd.h>
+	#include <sys/ioctl.h>
 #endif
 
 #include <errno.h>

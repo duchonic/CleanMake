@@ -6,7 +6,11 @@
 #include "interface/IOperation.h"
 #include "OperationFactory.h"
 
-#include <windows.h>
+#ifdef IS_MAC
+	#include <unistd.h>
+#else
+	#include <windows.h>
+#endif
 
 struct periodic_info
 {
@@ -33,7 +37,9 @@ int main() {
 	Serial mySerial;
 	Helper myHelper;
 
-#ifdef IS_VISUAL_STUDIO
+#ifdef IS_MAC
+	sleep(1);
+#elif IS_VISUAL_STUDIO
 	::_sleep(1000);
 #else
   Sleep(1000);
@@ -41,7 +47,9 @@ int main() {
 
 	setUp();
 
-	#ifdef IS_VISUAL_STUDIO
+	#ifdef IS_MAC
+		sleep(1);
+	#elif IS_VISUAL_STUDIO
 		::_sleep(1000);
 	#else
 	  Sleep(1000);
@@ -69,30 +77,33 @@ void getNextMsg(periodic_info* info) {
 	//if (PeriodicCycle::getInstance()->isPeriodicCycleEnabled()) {
 	if (true) {
 		mainProcedure();
-		#ifdef IS_VISUAL_STUDIO
+#ifdef IS_MAC
+			sleep(1);
+#elif IS_VISUAL_STUDIO
 			::_sleep(1000);
-		#else
+#else
 		  Sleep(1000);
-		#endif
+#endif
 	}
 }
 
 // The main procedure
 void mainProcedure() {
-
-
-
 	IOperation* pOperation = OperationFactory::getOperation();
 
 	try {
 		// process operation
 		pOperation->runDriver();
 
-
 		try {
 			std::string xmlMessage{ "<xml><item>dkdk</item></xml>" };
 			DEBUG_LOG << xmlMessage << '\n';
+
+#ifdef IS_MAC
+
+#else
 			XMLEventParser parser(xmlMessage.c_str());
+#endif
 
 			if (pOperation->hasMessageArrived()) {
 			//	IMessage* pMessage = pOperation->getMessage();

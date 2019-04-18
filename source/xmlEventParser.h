@@ -1,6 +1,12 @@
 #pragma once
 
-#include <xmlwrapp/event_parser.h>
+#ifdef IS_MAC
+
+#else
+	#include <xmlwrapp/event_parser.h>
+#endif
+
+#include <string>
 
 // Constants used for parsing
 static const std::string DESTINATION_SYS = "sys";
@@ -60,16 +66,25 @@ static const std::string DATA_SUBTYPE_SCAN = "scan";
 static const std::string DATA_SUBTYPE_ADJUST = "adjust";
 static const std::string DATA_SUBTYPE_STATISTICS = "statistic";
 
-class XMLEventParser : public xml::event_parser {
+#ifdef IS_MAC
+	class XMLEventParser  {
+#else
+	class XMLEventParser : public xml::event_parser {
+#endif
 
 public:
 	XMLEventParser(const char* xmlString);
 	~XMLEventParser();
 
 protected:
+#ifdef IS_MAC
+
+#else
 	virtual bool start_element(const std::string& name, const attrs_type& attrs);
 	virtual bool end_element(const std::string& name);
 	virtual bool text(const std::string& contents);
+#endif
+
 private:
 
 };

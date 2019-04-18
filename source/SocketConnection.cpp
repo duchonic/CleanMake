@@ -38,7 +38,11 @@ void SocketConnection::initialize()
     memset(&_pRemoteAddress, 0, sizeof(_pRemoteAddress));       /* Clear struct */
     _pRemoteAddress.sin_family = AF_INET;						/* Internet/IP */
     _pRemoteAddress.sin_addr.s_addr = htonl(INADDR_ANY);		/* Incoming addr */
+#ifdef IS_MAC
+    _pRemoteAddress.sin_port = htons(898);
+#else
     _pRemoteAddress.sin_port = htons(PORT_NBR);					/* server port */
+#endif
     bind(_socket, (struct sockaddr *) &_pRemoteAddress, sizeof(_pRemoteAddress));
 }
 
@@ -53,12 +57,12 @@ bool SocketConnection::connect()
 
 #ifdef IS_WINDOWS
 	int clientlen = sizeof(_pClientAddress);
-#elif
+#else
 	unsigned int clientlen = sizeof(_pClientAddress);
 #endif
 
     DEBUG_LOG << "Waiting for SYS connection..." << '\n';
-    
+
 	/* Wait for client connection */
     if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
     	return false;

@@ -3,9 +3,6 @@
 // connections
 #include <SocketConnection.h>
 
-// Logger
-#include <Logger.h>
-
 // Constructor
 ConnectionFactory::ConnectionFactory() {
 }

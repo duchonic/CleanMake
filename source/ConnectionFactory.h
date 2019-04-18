@@ -7,7 +7,6 @@
 //
 // ConnectionFactory
 // Get different kinds of connections
-// @author Peter Hug
 //
 class ConnectionFactory {
 
@@ -33,4 +32,3 @@ class InvalidConnectionException: public std::invalid_argument {
 			: invalid_argument(message) {
 		}
 };
-

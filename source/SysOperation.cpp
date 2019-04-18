@@ -56,17 +56,22 @@ bool SysOperation::hasMessageArrived() const {
 }
 
 // getMessage
-// <<offline>> 
+// <<offline>>
 IMessage* SysOperation::getMessage() {
 
+#ifdef IS_MAC
+  return NULL;
+#else
 	static XMLMessage message;
 	message.setMessageString(_messageString);
 	_bMessageArrived = false;
 	return &message;
+#endif
+
 }
 
 // sendMessage
-// <<offline>>								
+// <<offline>>
 void SysOperation::sendMessage(IMessage* pMessage) {
 	_vecMessages.push_back(pMessage);
 }

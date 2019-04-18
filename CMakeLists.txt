@@ -12,6 +12,8 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	message(STATUS "Made with Windows")
 	add_definitions(-DIS_WINDOWS)
+else()
+	add_definitions(-DIS_MAC)
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
