@@ -26,7 +26,7 @@
 #elif IS_VISUAL_STUDIO
 	#define SLEEP_ms(delay_ms) Sleep(delay_ms)
 #else
-	#define SLEEP_(ms) Sleep(delay_mx)
+	#define SLEEP_ms(delay_ms) 	Sleep(delay_ms)
 #endif
 
 
@@ -47,7 +47,3 @@ public:
 private:
 
 };
-
-
-
-

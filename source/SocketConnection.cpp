@@ -37,8 +37,8 @@ SocketConnection::~SocketConnection()
 
 void SocketConnection::initialize(){
 	DEBUG_LOG << "initialize socket connection" << '\n';
-    
-#ifdef IS_WINDOWS	
+
+#ifdef IS_VISUAL_STUDIO	
 	struct addrinfo* result = NULL;
 	struct addrinfo hints;
 
@@ -121,7 +121,7 @@ bool SocketConnection::canReceiveData()
 		else
 			printf("recv failed: %d\n", WSAGetLastError());
 	} while (iResult > 0);
-	
+
 	DEBUG_LOG << "nothing received" << '\n';
 
 	return 0;

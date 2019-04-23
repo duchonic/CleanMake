@@ -5,8 +5,7 @@
 #include "interface/IOperation.h"
 #include "OperationFactory.h"
 
-#include <functional>
-
+#include <ftdi.h>
 
 struct periodic_info
 {
@@ -27,6 +26,18 @@ void setUp();
 int main() {
 
 	DEBUG_LOG << "main entered" << '\n';
+
+	struct ftdi_context* ftdi;
+	int retval = EXIT_SUCCESS;
+
+
+	if ((ftdi = ftdi_new()) == 0) {
+		DEBUG_LOG << "ftdi_new failed" << '\n';
+	}
+	else {
+		DEBUG_LOG << "ftdi_new ok" << '\n';
+	}
+
 	struct periodic_info info;
 
 	Serial mySerial;
@@ -76,13 +87,6 @@ void mainProcedure() {
 
 		try {
 
-#ifdef IS_MAC
-
-#elif IS_LINUX
-	
-#else
-
-#endif
 			if (pOperation->hasMessageArrived()) {
 				IMessage* pMessage = pOperation->getMessage();
 

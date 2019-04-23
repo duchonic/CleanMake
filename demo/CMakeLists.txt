@@ -23,6 +23,7 @@ if (WIN32)
 			Communication
 			Collector
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
+			"C:/cLibs/libftdi1-1.0_devkit_mingw32/lib/libftdi1.a"
 			LibXml2
 			wsock32
 			ws2_32
@@ -39,6 +40,7 @@ if (WIN32)
 			Collector
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
 			"C:/cLibs/libxml2-2.7.8.win32/lib/libxml2.lib"
+			"C:/cLibs/libftdi1-1.0_devkit_mingw32/lib/libftdi1.a"
 			wsock32
 			ws2_32
 		)
