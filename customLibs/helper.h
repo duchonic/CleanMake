@@ -3,12 +3,31 @@
 
 #include "customLibs/timeUtil.h"
 
+
+#ifdef IS_MAC
+#include <unistd.h>
+#elif IS_LINUX
+#include <unistd.h>
+#else
+#include <windows.h>
+#endif
+
 #ifdef IS_WINDOWS
 	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 #else
 	#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 #endif
 
+
+#ifdef IS_MAC
+	#define SLEEP_ms(delay_ms) sleep(delay_ms)
+#elif IS_LINUX
+	#define SLEEP_ms(delay_ms) sleep(delay_ms)
+#elif IS_VISUAL_STUDIO
+	#define SLEEP_ms(delay_ms) Sleep(delay_ms)
+#else
+	#define SLEEP_(ms) Sleep(delay_mx)
+#endif
 
 
 #define DEBUG_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":debug: " << __FILENAME__ << ':' << __LINE__ << ' ')
@@ -28,3 +47,7 @@ public:
 private:
 
 };
+
+
+
+

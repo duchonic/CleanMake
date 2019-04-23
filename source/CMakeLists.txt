@@ -12,6 +12,7 @@ add_library(
 	Communication
 	SocketConnection.cpp
 	serial.cpp
+	USB2SPIDriver.cpp
 )
 
 add_library(

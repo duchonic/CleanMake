@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 11)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -31,6 +31,7 @@ if(WIN32)
 			"C:/cLibs/xmlwrapp/include"
 			"C:/cLibs/libxml2-2.7.8.win32/include"
 			"C:/cLibs/iconv-1.9.2.win32/include"
+			"C:/cLibs/libftdi1-1.0_devkit_mingw32/include/libftdi1"
 		)
 	else()
 		include_directories(

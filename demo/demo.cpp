@@ -6,13 +6,7 @@
 #include "OperationFactory.h"
 
 #include <functional>
-#ifdef IS_MAC
-	#include <unistd.h>
-#elif IS_LINUX
-	#include <unistd.h>
-#else
-	#include <windows.h>
-#endif
+
 
 struct periodic_info
 {
@@ -38,27 +32,9 @@ int main() {
 	Serial mySerial;
 	Helper myHelper;
 
-#ifdef IS_MAC
-	sleep(1);
-#elif IS_LINUX
-	sleep(1);
-#elif IS_VISUAL_STUDIO
-	Sleep(1000);
-#else
-  Sleep(1000);
-#endif
-
 	setUp();
 
-	#ifdef IS_MAC
-		sleep(1);
-	#elif IS_LINUX
-		sleep(1);
-	#elif IS_VISUAL_STUDIO
-		Sleep(1000);
-	#else
-	  Sleep(1000);
-	#endif
+	SLEEP_ms(1000);
 
 	mySerial.write("\n mainloop start");
 	while (!bAbort) {
@@ -84,15 +60,7 @@ void getNextMsg(periodic_info* info) {
 	//if (PeriodicCycle::getInstance()->isPeriodicCycleEnabled()) {
 	if (true) {
 		mainProcedure();
-#ifdef IS_MAC
-		sleep(1);
-#elif IS_LINUX
-		sleep(1);
-#elif IS_VISUAL_STUDIO
-		Sleep(1000);
-#else
-		Sleep(1000);
-#endif
+		SLEEP_ms(29);
 	}
 }
 
