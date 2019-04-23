@@ -23,7 +23,7 @@ endif()
 
 include_directories( ./ )
 
-if(WIN32)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     message(STATUS "add windows include folders")
 
 	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
@@ -41,6 +41,13 @@ if(WIN32)
 			"C:/cLibs/libftdi1-1.0_devkit_mingw32/include/libftdi1"
 		)
 	endif()
+
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	message(STATUS "add linux include folders")
+	include_directories(
+		#/opt/gsm1101/host/usr/i586-buildroot-linux-uclibc/sysroot/usr/include
+	)
+
 endif()
 
 add_subdirectory (source)

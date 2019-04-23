@@ -24,6 +24,8 @@ private:
 		BOOL fSuccess;
 		TCHAR* pcCommPort = TEXT("\\\\.\\COM10"); //
 		DWORD dwRet;
+	#elif IS_LINUX
+		
 	#else
 		DCB dcb;
 		HANDLE hCom;
