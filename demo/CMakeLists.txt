@@ -12,39 +12,21 @@ if (WIN32)
   find_library(WS2_32_LIBRARY ws2_32)
 	find_package(LibXml2 REQUIRED)
 	message(STATUS "Add windows libraries")
-
-	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-		target_link_libraries (
-			demo
-			LINK_PUBLIC
-			Source
-			Factory
-			CustomLib
-			Communication
-			Collector
-			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			"C:/cLibs/libftdi1-1.0_devkit_mingw32/lib/libftdi1.a"
-			LibXml2
-			wsock32
-			ws2_32
-		)
-	else()
-		message(STATUS "target link MINGW")
-		target_link_libraries (
-			demo
-			LINK_PUBLIC
-			Source
-			Factory
-			CustomLib
-			Communication
-			Collector
-			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			"C:/cLibs/libxml2-2.7.8.win32/lib/libxml2.lib"
-			"C:/cLibs/libftdi1-1.0_devkit_mingw32/lib/libftdi1.a"
-			wsock32
-			ws2_32
-		)
-	endif()
+	target_link_libraries (
+		demo
+		LINK_PUBLIC
+		Source
+		Factory
+		CustomLib
+		Communication
+		Collector
+		"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
+		"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.lib"
+		"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.lib"
+		LibXml2
+		wsock32
+		ws2_32
+	)
 else()
 	target_link_libraries (
 		demo

@@ -5,7 +5,8 @@
 #include "interface/IOperation.h"
 #include "OperationFactory.h"
 
-#include <ftdi.h>
+#include <libMPSSE_spi.h>
+#include <libMPSSE_i2c.h>
 
 struct periodic_info
 {
@@ -27,16 +28,20 @@ int main() {
 
 	DEBUG_LOG << "main entered" << '\n';
 
-	struct ftdi_context* ftdi;
-	int retval = EXIT_SUCCESS;
+	Init_libMPSSE();
 
+	FT_STATUS status_spi = FT_OK;
+	uint32 noChannels_spi = 0;
+	status_spi = SPI_GetNumChannels(&noChannels_spi);
+	DEBUG_LOG << "status mpsse_spi: " << status_spi << '\n';
 
-	if ((ftdi = ftdi_new()) == 0) {
-		DEBUG_LOG << "ftdi_new failed" << '\n';
-	}
-	else {
-		DEBUG_LOG << "ftdi_new ok" << '\n';
-	}
+	FT_STATUS status_i2c = FT_OK;
+	uint32 noChannels_i2c = 0;
+	status_i2c = I2C_GetNumChannels(&noChannels_i2c);
+	DEBUG_LOG << "status mpsse_i2c: " << status_i2c << '\n';
+
+	Cleanup_libMPSSE();
+
 
 	struct periodic_info info;
 
