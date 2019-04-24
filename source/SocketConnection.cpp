@@ -92,8 +92,9 @@ bool SocketConnection::connect()
     if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
     	return false;
     }
-
+#ifndef IS_WINDOWS
     INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#endif
 	return true;
 }
 

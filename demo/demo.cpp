@@ -34,14 +34,15 @@ int main() {
 	uint32 noChannels_spi = 0;
 	status_spi = SPI_GetNumChannels(&noChannels_spi);
 	DEBUG_LOG << "status mpsse_spi: " << status_spi << '\n';
+	DEBUG_LOG << "noChannels_spi: " << noChannels_spi << '\n';
 
 	FT_STATUS status_i2c = FT_OK;
 	uint32 noChannels_i2c = 0;
 	status_i2c = I2C_GetNumChannels(&noChannels_i2c);
 	DEBUG_LOG << "status mpsse_i2c: " << status_i2c << '\n';
+	DEBUG_LOG << "noChannels_i2c: " << noChannels_i2c << '\n';
 
 	Cleanup_libMPSSE();
-
 
 	struct periodic_info info;
 
