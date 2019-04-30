@@ -6,6 +6,13 @@
 #include "OperationFactory.h"
 
 #include <functional>
+#include <thread>
+#include <chrono>
+#include <ratio>
+
+using namespace std;
+using namespace chrono_literals;
+
 #ifdef IS_MAC
 	#include <unistd.h>
 #elif IS_LINUX
@@ -30,10 +37,43 @@ void mainProcedure();
 void getNextMsg(periodic_info* info);
 void setUp();
 
+
+static void thread_with_delay(int delay){
+    for (int runs=0; runs<10; runs++) {
+        this_thread::sleep_for(1s * delay);
+        INFO_LOG << "hello michael from thread, run: " << runs << '\n';
+        this_thread::sleep_for(1s * delay);
+        INFO_LOG << "byby" << '\n';
+    }
+}
+
+
 int main() {
 
 	DEBUG_LOG << "main entered" << '\n';
 	struct periodic_info info;
+
+    using millis = chrono::duration<int, ratio<1, 1000>>;
+    using fortnight = chrono::duration<float, ratio<14*24*60*60, 1>>;
+    using hour = chrono::duration<float, ratio<60*60,1>>;
+
+    chrono::seconds sec(1);
+    chrono::minutes min(66);
+
+    INFO_LOG << thread::hardware_concurrency() << " current threads supported" << '\n';
+
+    DEBUG_LOG << "1 SEC IS: " << millis(sec).count() << "ms" << '\n';
+    DEBUG_LOG << "1 SEC IS: " << chrono::milliseconds(sec).count() << "ms" << '\n';
+    DEBUG_LOG << "66min : " << millis(min).count() << "ms" << '\n';
+    DEBUG_LOG << "66min : " << chrono::duration_cast<chrono::hours>(min).count() << "hour" << '\n';
+    DEBUG_LOG << "66min : " << hour(min).count() << "hour" << '\n';
+    DEBUG_LOG << "66min : " << fortnight(min).count() << "fortnight" << '\n';
+
+    thread th_nummerOne {
+        thread_with_delay, 1
+    };
+
+    th_nummerOne.detach();
 
 	Serial mySerial;
 	Helper myHelper;
@@ -101,7 +141,7 @@ void mainProcedure() {
 	IOperation* pOperation = OperationFactory::getOperation();
 
 	INFO_LOG << "main loop running..." << '\n';
-	
+
 	try {
 		// process operation
 		pOperation->runDriver();
@@ -111,15 +151,15 @@ void mainProcedure() {
 #ifdef IS_MAC
 
 #elif IS_LINUX
-	
+
 #else
 
 #endif
 			if (pOperation->hasMessageArrived()) {
-				IMessage* pMessage = pOperation->getMessage();
+				//IMessage* pMessage = pOperation->getMessage();
 
 				//INFO_LOG << "message: " << pMessage->toString() << '\n';
-				
+
 				//IMessageProcessor* processor = MessageProcessorFactory::getMessageProcessor();
 				//processor->processMessage(pMessage);
 			}

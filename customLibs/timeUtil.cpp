@@ -3,6 +3,8 @@
 
 #ifdef IS_LINUX
 	#include <sys/time.h>
+#elif IS_MAC
+
 #else
 	#include <sys/utime.h>
 #endif
@@ -113,6 +115,14 @@ std::string TimeUtil::getCurrentMSTimeString()
 	timeStream << std::setfill('0') << std::setw(2) << st.wMinute << ':';
 	timeStream << std::setfill('0') << std::setw(2) << st.wSecond ;
 	return timeStream.str();
+#elif IS_MAC
+    static char timeString[255];
+    //time_t t = time(NULL);
+    //struct tm tm = *localtime(&t);
+    //struct timeval  tv;
+    //gettimeofday(&tv, NULL);
+    //sprintf(timeString, "%02d:%02d:%02d:%03d", tm.tm_hour, tm.tm_min, tm.tm_sec, (int)(tv.tv_usec / 1000));
+    return timeString;
 #endif
 
 }

@@ -37,8 +37,8 @@ SocketConnection::~SocketConnection()
 
 void SocketConnection::initialize(){
 	DEBUG_LOG << "initialize socket connection" << '\n';
-    
-#ifdef IS_WINDOWS	
+
+#ifdef IS_WINDOWS
 	struct addrinfo* result = NULL;
 	struct addrinfo hints;
 
@@ -93,7 +93,11 @@ bool SocketConnection::connect()
     	return false;
     }
 
-    INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#ifdef IS_MAC
+
+#else
+	INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#endif
 	return true;
 }
 
