@@ -97,14 +97,12 @@ bool SocketConnection::connect()
     	return false;
     }
 
-#ifdef IS_MAC
-
-
-#else
+#ifdef IS_LINUX  
   INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
-#ifndef IS_WINDOWS
+#elif IS_WINDOWS
   INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
 #endif
+
 	return true;
 }
 

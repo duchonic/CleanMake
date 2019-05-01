@@ -6,9 +6,23 @@
 
 #include "catch.h"
 
+#include <libMPSSE_spi.h>
+#include <libMPSSE_i2c.h>
+
+
 int testSerial() {
 	int blub = 3;
 	return blub;
+}
+
+TEST_CASE("TEST MPSSE SPI", "[single-file]") {
+	
+	FT_STATUS status = FT_OK;
+	uint32 channels = 2;
+	status = SPI_GetNumChannels(&channels);
+	REQUIRE(status == FT_OK);
+	REQUIRE(channels == 2);
+
 }
 
 TEST_CASE("TEST1", "[single-file]") {

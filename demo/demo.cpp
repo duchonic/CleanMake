@@ -53,14 +53,6 @@ void mainProcedure();
 void getNextMsg(periodic_info* info);
 void setUp();
 
-
-static void thread_with_delay(int delay){
-    for (int runs=0; runs<10; runs++) {
-        this_thread::sleep_for(1s * delay);
-        INFO_LOG << "hello michael from thread, run: " << runs << '\n';
-        this_thread::sleep_for(1s * delay);
-        INFO_LOG << "byby" << '\n';
-    }
 #define APP_CHECK_STATUS(exp) {if(exp!=FT_OK){printf("%s:%d:%s(): status(0x%x) \
 != FT_OK\n",__FILE__, __LINE__, __FUNCTION__,exp);exit(1);}else{;}};
 
@@ -136,16 +128,6 @@ int main() {
 
 	DEBUG_LOG << "main entered" << '\n';
 
-	Init_libMPSSE();
-
-
-
-	FT_STATUS status_i2c = FT_OK;
-	uint32 noChannels_i2c = 0;
-	status_i2c = I2C_GetNumChannels(&noChannels_i2c);
-	DEBUG_LOG << "status mpsse_i2c: " << status_i2c << '\n';
-	DEBUG_LOG << "noChannels_i2c: " << noChannels_i2c << '\n';
-
 	std::thread t1(th_mpsseTest);
 	t1.detach();
 
@@ -153,27 +135,6 @@ int main() {
 
 	struct periodic_info info;
 
-    using millis = chrono::duration<int, ratio<1, 1000>>;
-    using fortnight = chrono::duration<float, ratio<14*24*60*60, 1>>;
-    using hour = chrono::duration<float, ratio<60*60,1>>;
-
-    chrono::seconds sec(1);
-    chrono::minutes min(66);
-
-    INFO_LOG << thread::hardware_concurrency() << " current threads supported" << '\n';
-
-    DEBUG_LOG << "1 SEC IS: " << millis(sec).count() << "ms" << '\n';
-    DEBUG_LOG << "1 SEC IS: " << chrono::milliseconds(sec).count() << "ms" << '\n';
-    DEBUG_LOG << "66min : " << millis(min).count() << "ms" << '\n';
-    DEBUG_LOG << "66min : " << chrono::duration_cast<chrono::hours>(min).count() << "hour" << '\n';
-    DEBUG_LOG << "66min : " << hour(min).count() << "hour" << '\n';
-    DEBUG_LOG << "66min : " << fortnight(min).count() << "fortnight" << '\n';
-
-    thread th_nummerOne {
-        thread_with_delay, 1
-    };
-
-    th_nummerOne.detach();
 
 	Serial mySerial;
 	Helper myHelper;
