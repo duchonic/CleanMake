@@ -23,22 +23,23 @@ endif()
 
 include_directories( ./ )
 
-if(WIN32)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     message(STATUS "add windows include folders")
+	include_directories(
+		"C:/cLibs/xmlwrapp/include"
+		"C:/cLibs/libxml2-2.7.8.win32/include"
+		"C:/cLibs/iconv-1.9.2.win32/include"
+		"C:/cLibs/LibMPSSE-SPI/include"
+		"C:/cLibs/LibMPSSE-SPI/include/windows"
+		"C:/cLibs/LibMPSSE-I2C/include"
+		"C:/cLibs/LibMPSSE-I2C/include/windows"
+	)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	message(STATUS "add linux include folders")
+	include_directories(
+		#/opt/gsm1101/host/usr/i586-buildroot-linux-uclibc/sysroot/usr/include
+	)
 
-	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-		include_directories(
-			"C:/cLibs/xmlwrapp/include"
-			"C:/cLibs/libxml2-2.7.8.win32/include"
-			"C:/cLibs/iconv-1.9.2.win32/include"
-		)
-	else()
-		include_directories(
-			"C:/cLibs/xmlwrapp/include"
-			"C:/cLibs/libxml2-2.7.8.win32/include"
-			"C:/cLibs/iconv-1.9.2.win32/include"
-		)
-	endif()
 endif()
 
 add_subdirectory (source)

@@ -1,4 +1,5 @@
 #include "timeUtil.h"
+#include <cassert>
 #include <stdlib.h>
 
 #ifdef IS_LINUX
@@ -42,7 +43,7 @@ int TimeUtil::getTimeDiff(const Time* pStartTime, const Time* pEndTime)
         temp.tv_sec = pEndTime->tv_sec-pStartTime->tv_sec;
         temp.tv_nsec = pEndTime->tv_nsec-pStartTime->tv_nsec;
     }
-    return (temp.tv_sec * 1000) + (temp.tv_nsec / 1000000LL);
+    return (int)((temp.tv_sec * 1000) + (temp.tv_nsec / 1000000LL));
 }
 
 /*
@@ -54,8 +55,8 @@ int clock_gettime(int, struct timespec* spec)      //C-file part
 	__int64 wintime;
 	GetSystemTimeAsFileTime((_FILETIME*)& wintime);
 	wintime -= epoch;				//1jan1601 to 1jan1970
-	spec->tv_sec = wintime / 10000000i64;           //seconds
-	spec->tv_nsec = wintime % 10000000i64 * 100;    //nano-seconds
+	spec->tv_sec = wintime / 10000000; //i64;           //seconds
+	spec->tv_nsec = wintime % 10000000; //i64 * 100;    //nano-seconds
 	return 0;
 }
 #endif
@@ -68,9 +69,20 @@ void TimeUtil::getCurrentTime(Time* pTime)
 char* TimeUtil::getCurrentDateTimeString()
 {
 	static char timeString[255];
+
+#ifdef IS_WINDOWS
+	struct tm newtime;
+	__time64_t long_time;
+	// Get time as 64-bit integer.
+	_time64(&long_time);
+	// Convert to local time.
+	assert(_localtime64_s(&newtime, &long_time) == 0);
+	sprintf_s(timeString, sizeof(timeString), "%d:%d:%d", newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+#else
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 	sprintf(timeString, "%d:%d:%d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+#endif
 	return timeString;
 }
 

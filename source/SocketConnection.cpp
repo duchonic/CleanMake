@@ -39,6 +39,10 @@ void SocketConnection::initialize(){
 	DEBUG_LOG << "initialize socket connection" << '\n';
 
 #ifdef IS_WINDOWS
+
+#endif
+
+#ifdef IS_VISUAL_STUDIO	
 	struct addrinfo* result = NULL;
 	struct addrinfo hints;
 
@@ -95,8 +99,11 @@ bool SocketConnection::connect()
 
 #ifdef IS_MAC
 
+
 #else
-	INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+  INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
+#ifndef IS_WINDOWS
+  INFO_LOG << "Connected to SYS at " << inet_ntoa(_pClientAddress.sin_addr) << '\n';
 #endif
 	return true;
 }
@@ -125,7 +132,7 @@ bool SocketConnection::canReceiveData()
 		else
 			printf("recv failed: %d\n", WSAGetLastError());
 	} while (iResult > 0);
-	
+
 	DEBUG_LOG << "nothing received" << '\n';
 
 	return 0;

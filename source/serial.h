@@ -18,13 +18,22 @@ public:
 
 private:
 
-	#ifdef IS_WINDOWS
+	#ifdef IS_VISUAL_STUDIO
 		DCB dcb;
 		HANDLE hCom;
 		BOOL fSuccess;
 		TCHAR* pcCommPort = TEXT("\\\\.\\COM10"); //
 		DWORD dwRet;
+	#elif IS_LINUX
+		
+	#else
+		DCB dcb;
+		HANDLE hCom;
+		BOOL fSuccess;
+		TCHAR* pcCommPort = NULL; //TEXT("./COM10"); //
+		DWORD dwRet;
 	#endif
+
 
 protected:
 

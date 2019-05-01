@@ -8,12 +8,14 @@ add_executable (demo demo.cpp)
 
 if (WIN32)
 	message(STATUS "Search Windows libraries")
-	find_library(WSOCK32_LIBRARY wsock32)
-  find_library(WS2_32_LIBRARY ws2_32)
-	find_package(LibXml2 REQUIRED)
-	message(STATUS "Add windows libraries")
 
-	if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	if (MSVC)
+		message(STATUS "Visual studio")
+		find_library(WSOCK32_LIBRARY wsock32)
+	  find_library(WS2_32_LIBRARY ws2_32)
+		find_package(LibXml2 REQUIRED)
+		message(STATUS "Add windows libraries")
+
 		target_link_libraries (
 			demo
 			LINK_PUBLIC
@@ -23,12 +25,13 @@ if (WIN32)
 			Communication
 			Collector
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
+			"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.lib"
+			"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.lib"
 			LibXml2
 			wsock32
 			ws2_32
 		)
 	else()
-		message(STATUS "target link MINGW")
 		target_link_libraries (
 			demo
 			LINK_PUBLIC
@@ -37,12 +40,15 @@ if (WIN32)
 			CustomLib
 			Communication
 			Collector
+			LibXml2
 			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			"C:/cLibs/libxml2-2.7.8.win32/lib/libxml2.lib"
+			"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.a"
+			"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.a"
 			wsock32
 			ws2_32
 		)
 	endif()
+
 else()
 	target_link_libraries (
 		demo

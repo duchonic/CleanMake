@@ -7,7 +7,6 @@
 #include <string>
 #include <stdexcept>
 
-
 class Timer {
 
 public:
@@ -35,6 +34,8 @@ public:
 
 	// remove timer
 	static void removeTimer(const std::string& timerID);
+
+
 
 private:
 
