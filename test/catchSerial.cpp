@@ -6,7 +6,6 @@
 #include "source/serial.h"
 #include <functional>
 
-
 Serial mySerial;
 
 int test2() {

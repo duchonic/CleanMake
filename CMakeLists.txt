@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 11)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -19,6 +19,10 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	message(STATUS "Visual Studio C++")
 	add_definitions(-DIS_VISUAL_STUDIO -D_HAS_AUTO_PTR_ETC)
+	#debug
+	set(CMAKE_CXX_FLAGS "/EHsc /MDd /Zi /Ob0 /Od /RTC1 /Wall")
+	#release
+	#set(CMAKE_CXX_FLAGS_RELEASE "/MD /O2 /Ob2 /DNDEBUG")
 endif()
 
 include_directories( ./ )
@@ -29,10 +33,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 		"C:/cLibs/xmlwrapp/include"
 		"C:/cLibs/libxml2-2.7.8.win32/include"
 		"C:/cLibs/iconv-1.9.2.win32/include"
-		"C:/cLibs/LibMPSSE-SPI/include"
-		"C:/cLibs/LibMPSSE-SPI/include/windows"
-		"C:/cLibs/LibMPSSE-I2C/include"
-		"C:/cLibs/LibMPSSE-I2C/include/windows"
 	)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "add linux include folders")
