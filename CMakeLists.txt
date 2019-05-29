@@ -37,6 +37,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "add linux include folders")
 	include_directories(
+		./source
 		#/opt/gsm1101/host/usr/i586-buildroot-linux-uclibc/sysroot/usr/include
 	)
 endif()

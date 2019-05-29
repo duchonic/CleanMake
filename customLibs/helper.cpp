@@ -8,11 +8,9 @@ Helper::Helper(){
   STATE_LOG << "constructor" << '\n';
 
   std::string configFile = std::string("communication.json");
-  //INFO_LOG << "config length: " << configFile.length() << '\n';
-  //INFO_LOG << "data: " << configFile. << '\n';
   std::string line;
   std::ifstream myfile(configFile);
-  assert(myfile.is_open());
+  //assert(myfile.is_open());
 
 	  while (getline(myfile, line))
 	  {

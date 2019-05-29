@@ -11,5 +11,6 @@ OperationFactory::~OperationFactory() {
 
 // Get the active IOperation
 IOperation* OperationFactory::getOperation() {
-	return SysOperation::getInstance();
+	//return SysOperation::getInstance();
+	return NULL;
 }
