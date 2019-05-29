@@ -19,29 +19,11 @@ add_library(
 	SingletonCollector.cpp
 )
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	add_library (
-		Source
-		SysOperation.cpp
-		#XMLMessage.cpp
-		#xmlEventParser.cpp
+add_library (
+	Source
+	SysOperation.cpp
+)
 
-	)
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-	add_library (
-		Source
-		SysOperation.cpp
-		XMLMessage.cpp
-		xmlEventParser.cpp
-	)
-else()
-	add_library (
-		Source
-		SysOperation.cpp
-		#XMLMessage.cpp
-		#xmlEventParser.cpp
-	)
-endif()
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello

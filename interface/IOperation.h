@@ -15,21 +15,21 @@ public:
 
 	// hasMessageArrived
 	// <<offline>>
-    virtual bool hasMessageArrived() const = 0;
+	virtual bool hasMessageArrived() const = 0;
 
-    // getMessage
+	// getMessage
 	// <<offline>>
-    virtual IMessage* getMessage() = 0;
+	virtual IMessage* getMessage() = 0;
 
-    // sendMessage
+	// sendMessage
 	// <<offline>>
-    virtual void sendMessage(IMessage* pMessage) = 0;
+	virtual void sendMessage(IMessage* pMessage) = 0;
 
-   // init the driver
+	// init the driver
 	// <<online>>
-    virtual void initDriver() = 0;
+	virtual void initDriver() = 0;
 
-    // do the driver work
+	// do the driver work
 	// <<online>>
 	virtual void runDriver() = 0;
 
@@ -37,7 +37,7 @@ public:
 	// <<offline>>
 	virtual void resetDriver() = 0;
 
-    // close the driver
+	// close the driver
 	// <<online>>
-    virtual void closeDriver() = 0;
+	virtual void closeDriver() = 0;
 };

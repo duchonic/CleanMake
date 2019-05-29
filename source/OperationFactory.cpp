@@ -13,5 +13,3 @@ OperationFactory::~OperationFactory() {
 IOperation* OperationFactory::getOperation() {
 	return SysOperation::getInstance();
 }
-
-

@@ -14,7 +14,7 @@
 
 #ifdef IS_WINDOWS
 	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#else IS_LINUX
+#elif IS_LINUX
 	#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 #endif
 

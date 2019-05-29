@@ -12,8 +12,7 @@ if (WIN32)
 	if (MSVC)
 		message(STATUS "Visual studio")
 		find_library(WSOCK32_LIBRARY wsock32)
-	  find_library(WS2_32_LIBRARY ws2_32)
-		find_package(LibXml2 REQUIRED)
+		find_library(WS2_32_LIBRARY ws2_32)
 		message(STATUS "Add windows libraries")
 
 		target_link_libraries (
@@ -24,28 +23,27 @@ if (WIN32)
 			CustomLib
 			Communication
 			Collector
-			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.lib"
-			"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.lib"
-			LibXml2
 			wsock32
 			ws2_32
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/ftdi1.lib"
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/libiconvStaticD.lib"
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/libusb-1.0.lib"
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/libxml2-static.lib"
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/libz-static.lib"
+			"${PROJECT_SOURCE_DIR}/winLibs/debug/xmlwrapp.lib"
 		)
 	else()
+		message(STATUS "Add windows libraries mingw")
 		target_link_libraries (
 			demo
-			LINK_PUBLIC
-			Source
 			Factory
-			CustomLib
+			Source
 			Communication
 			Collector
-			LibXml2
-			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
-			"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.a"
-			"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.a"
+			CustomLib
 			wsock32
 			ws2_32
+			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
 		)
 	endif()
 
@@ -53,7 +51,6 @@ else()
 	target_link_libraries (
 		demo
 		LINK_PUBLIC
-		Source
 		Factory
 		CustomLib
 		Communication

@@ -76,8 +76,8 @@ char* TimeUtil::getCurrentDateTimeString()
 	// Get time as 64-bit integer.
 	_time64(&long_time);
 	// Convert to local time.
-	assert(_localtime64_s(&newtime, &long_time) == 0);
-	sprintf_s(timeString, sizeof(timeString), "%d:%d:%d", newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+	//assert(_localtime64_s(&newtime, &long_time) == 0);
+	//sprintf_s(timeString, sizeof(timeString), "%d:%d:%d", newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
 #else
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);

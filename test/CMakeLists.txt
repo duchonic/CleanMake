@@ -2,6 +2,8 @@ add_executable (
 	testing
 	catchMain.cpp
 	catchSerial.cpp
+	catchDriver.cpp
+	catchInterface.cpp
 )
 
 
@@ -16,9 +18,6 @@ if (WIN32)
 		CustomLib
 		Communication
 		Collector
-		"C:/cLibs/LibMPSSE-SPI/lib/windows/i386/libMPSSE.lib"
-		"C:/cLibs/LibMPSSE-I2C/lib/windows/i386/libMPSSE.lib"
-		LibXml2
 		wsock32
 		ws2_32
 	)

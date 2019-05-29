@@ -6,7 +6,7 @@
 #include "SingletonCollector.h"
 #include "ConnectionFactory.h"
 
-#include "XMLMessage.h"
+//#include "XMLMessage.h"
 
 // static initialization
 SysOperation* SysOperation::_instance = 0;
@@ -54,10 +54,10 @@ IMessage* SysOperation::getMessage() {
 #elif IS_LINUX
   return NULL;
 #else
-	static XMLMessage message;
-	message.setMessageString(_messageString);
-	_bMessageArrived = false;
-	return &message;
+	//static XMLMessage message;
+	//message.setMessageString(_messageString);
+	//_bMessageArrived = false;
+	return NULL;
 #endif
 
 }
@@ -71,7 +71,7 @@ void SysOperation::sendMessage(IMessage* pMessage) {
 // init the driver
 // <<online>>
 void SysOperation::initDriver() {
-	_pConnection = ConnectionFactory::getConnection("SocketConnection");
+	_pConnection = NULL; //ConnectionFactory::getConnection("SocketConnection");
 
 	if (_pConnection == 0) {
 		ERROR_LOG << "No valid connection" << '\n';
