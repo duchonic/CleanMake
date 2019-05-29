@@ -1,5 +1,5 @@
 #include "serial.h"
-#include "xmlEventParser.h"
+//#include "xmlEventParser.h"
 #include "customLibs/helper.h"
 
 #include "interface/IOperation.h"
@@ -112,13 +112,6 @@ void mainProcedure() {
 
 		try {
 
-#ifdef IS_MAC
-
-#elif IS_LINUX
-
-#else
-
-#endif
 			if (pOperation->hasMessageArrived()) {
 				//IMessage* pMessage = pOperation->getMessage();
 

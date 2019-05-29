@@ -2,6 +2,8 @@ add_executable (
 	testing
 	catchMain.cpp
 	catchSerial.cpp
+	catchDriver.cpp
+	catchInterface.cpp
 )
 
 

@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -28,7 +28,7 @@ endif()
 include_directories( ./ )
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    message(STATUS "add windows include folders")
+	message(STATUS "add windows include folders")
 	include_directories(
 		"C:/cLibs/xmlwrapp/include"
 		"C:/cLibs/libxml2-2.7.8.win32/include"
@@ -39,7 +39,6 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	include_directories(
 		#/opt/gsm1101/host/usr/i586-buildroot-linux-uclibc/sysroot/usr/include
 	)
-
 endif()
 
 add_subdirectory (source)

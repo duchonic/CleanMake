@@ -8,7 +8,6 @@
 #include "customLibs/helper.h"
 #include <array>
 
-
 class Spectrum {
 public:
 	static const int SIZE = 64;
@@ -35,6 +34,11 @@ void Spectrum::addValue(int index, int value) {
 
 int Spectrum::getValue(int index) {
 	return values.at(index);
+}
+
+
+TEST_CASE("load json", "load json") {
+	//Helper myHelper;
 }
 
 
@@ -91,7 +95,7 @@ SCENARIO("ARRAYS", "[array]") {
 		const int size{ 63 };
 		std::array<double, size> testArray;
 		std::vector<int> testVector;
-		
+
 
 		WHEN("edit some elements") {
 			testArray[4] = 12.4;
@@ -106,19 +110,19 @@ SCENARIO("ARRAYS", "[array]") {
 			INFO_LOG << "testVector at 9: " << testVector.at(9) << '\n';
 			//INFO_LOG << "testVector at 10" << testVector.at(19) << '\n';
 
-			for (auto entries : testVector) {
-				std::cout << entries << '\n';
-			}
+			//for (auto entries : testVector) {
+			//	std::cout << entries << '\n';
+			//}
 
-			for (auto s : testArray) {
-				std::cout << s;
-			}
+			//for (auto s : testArray) {
+			//	std::cout << s;
+			//}
 
 			THEN("size changes ") {
 				REQUIRE(testArray.at(4) == 12.4);
 				REQUIRE(testArray.at(5) == 11.1);
 				//REQUIRE(testArray.at(23123) == 123);
-				
+
 			}
 		}
 	}
@@ -151,6 +155,8 @@ TEST_CASE("TEST2", "[single-file]") {
 	REQUIRE(2 == 2);
 }
 
+
+
 SCENARIO("vectors size test", "[vector]") {
 	GIVEN("a vector with som eitems") {
 		std::vector<int> v(4);
@@ -164,4 +170,20 @@ SCENARIO("vectors size test", "[vector]") {
 			}
 		}
 	}
+}
+
+
+TEST_CASE("FOR loops", "[]") {
+	INFO_LOG << "test case for loops" << '\n';
+
+	int soll = 0;
+	for (int ist = 0; ist < 12; ist+=1) {
+		REQUIRE(soll++ == ist);
+	}
+}
+
+TEST_CASE("modulo zero", "") {
+	INFO_LOG << "MODULO" << '\n';
+
+	INFO_LOG << "FMOD(0,0): " << fmod(0, 0) << '\n';
 }

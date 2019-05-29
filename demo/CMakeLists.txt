@@ -33,17 +33,17 @@ if (WIN32)
 			"${PROJECT_SOURCE_DIR}/winLibs/debug/xmlwrapp.lib"
 		)
 	else()
+		message(STATUS "Add windows libraries mingw")
 		target_link_libraries (
 			demo
-			LINK_PUBLIC
-			Source
 			Factory
-			CustomLib
+			Source
 			Communication
 			Collector
-			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
+			CustomLib
 			wsock32
 			ws2_32
+			"C:/cLibs/xmlwrapp/lib/xmlwrapp.lib"
 		)
 	endif()
 
@@ -51,7 +51,6 @@ else()
 	target_link_libraries (
 		demo
 		LINK_PUBLIC
-		Source
 		Factory
 		CustomLib
 		Communication

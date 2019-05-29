@@ -1,0 +1,7 @@
+
+
+'communication':{
+	'SETUP':'setup',
+	'STANDBY':'standby',
+	'OFF':'off'
+}
