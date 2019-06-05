@@ -37,10 +37,40 @@ int Spectrum::getValue(int index) {
 }
 
 
-TEST_CASE("load json", "load json") {
-	//Helper myHelper;
+class AlgHelper
+{
+public:
+	AlgHelper();
+	~AlgHelper();
+	void setNr(int nrInput = 12) {
+		nr = nrInput;
+	}
+	int getNr() {
+		return nr;
+	}
+
+private:
+	int nr;
+	std::string name;
+};
+
+AlgHelper::AlgHelper()
+{
+	DEBUG_LOG << "constructor" << NL;
 }
 
+AlgHelper::~AlgHelper()
+{
+	DEBUG_LOG << "deconstructor" << NL;
+}
+
+TEST_CASE("alghelper", "blub") {
+	AlgHelper h,i;
+	h.setNr();
+	i.setNr(898);
+	INFO_LOG << "alghelper h nr: " << h.getNr() << NL;
+	INFO_LOG << "alghelper i nr: " << i.getNr() << NL;
+}
 
 TEST_CASE("array of class", "array of class") {
 	std::array<Spectrum, 8> mySpecs;

@@ -36,7 +36,7 @@
 #define ERROR_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":error: " << __FILENAME__ << ':' << __LINE__ << ' ')
 #define CLASS_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":class: " << __FILENAME__ << ':' << __LINE__ << ' ')
 #define TEST_LOG (std::cout << "[" << TimeUtil::getCurrentMSTimeString() << "] "  << ":test: " << __FILENAME__ << ':' << __LINE__ << ' ')
-
+constexpr auto NL = '\n';
 
 class Helper{
 
