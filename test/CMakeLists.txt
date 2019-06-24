@@ -4,6 +4,7 @@ add_executable (
 	catchSerial.cpp
 	catchDriver.cpp
 	catchInterface.cpp
+	catchTimer.cpp
 )
 
 
