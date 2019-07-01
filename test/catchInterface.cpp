@@ -3,6 +3,32 @@
 
 #include "catch.h"
 #include "customLibs/helper.h"
+#include "interface/IDriver.h"
+
+
+class RunDriver : public IDriver {
+public:
+	void initDriver() {
+		INFO_LOG << "init rundriver" << NL;
+	};
+	void runDriver() {
+		INFO_LOG << "run rundriver" << NL;
+	}
+	void resetDriver();
+	//{
+	//	INFO_LOG << "reset rundriver" << NL;
+	//};
+	void closeDriver() {
+		INFO_LOG << "close rundriver" << NL;
+	};
+
+private:
+
+};
+
+void RunDriver::resetDriver() {
+	INFO_LOG << "blub" << NL;
+}
 
 
 class Shape {
@@ -46,6 +72,16 @@ TEST_CASE("interface test", "interface test") {
 	Tri.setWidth(5);
 	Tri.setHeight(7);
 
+	INFO_LOG << "catch interface" << NL;
+
 	REQUIRE(Rect.getArea() == (5*7));
 	REQUIRE(Tri.getArea() == ( (5*7) / 2.0 ));
+}
+
+TEST_CASE("rundriver interface", "blub") {
+
+	RunDriver myRunDriver;
+
+	myRunDriver.initDriver();
+	myRunDriver.runDriver();
 }

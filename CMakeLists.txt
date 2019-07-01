@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (cross)
 
-set (CMAKE_CXX_STANDARD 17)
+#set (CMAKE_CXX_STANDARD 11)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "Made with Linux")
@@ -30,9 +30,8 @@ include_directories( ./ )
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	message(STATUS "add windows include folders")
 	include_directories(
-		"C:/cLibs/xmlwrapp/include"
-		"C:/cLibs/libxml2-2.7.8.win32/include"
-		"C:/cLibs/iconv-1.9.2.win32/include"
+		"${PROJECT_SOURCE_DIR}/winLibs/libMPSSE/SPI/"
+		"${PROJECT_SOURCE_DIR}/winLibs/libMPSSE/I2C/"
 	)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "add linux include folders")

@@ -11,7 +11,7 @@ class IDriverManager {
 public:
 
     // Destructor
-    virtual ~IDriverManager() {}
+	virtual ~IDriverManager() {};
 
     // initialize all drivers
     virtual void initDrivers() = 0;

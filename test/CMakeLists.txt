@@ -4,6 +4,11 @@ add_executable (
 	catchSerial.cpp
 	catchDriver.cpp
 	catchInterface.cpp
+	#catchFTDI.cpp
+	catchClassLogger.cpp
+	catchCleverLogger.cpp
+	catchMisc.cpp
+	catchTryCatch.cpp
 )
 
 
@@ -18,6 +23,8 @@ if (WIN32)
 		CustomLib
 		Communication
 		Collector
+		"${PROJECT_SOURCE_DIR}/winLibs/libMPSSE/SPI/libMPSSE.lib"
+		"${PROJECT_SOURCE_DIR}/winLibs/libMPSSE/I2C/libMPSSE.lib"
 		wsock32
 		ws2_32
 	)

@@ -7,6 +7,7 @@
 #include "catch.h"
 #include "customLibs/helper.h"
 #include <array>
+#include <vector>
 
 class Spectrum {
 public:
@@ -94,13 +95,18 @@ int switchTest(int i) {
 	switch (i){
 		default:
 			return 99;
+			break;
 		case 0:
+			return 0;
 			break;
 		case 1:
 			return 1;
+			break;
 		case 2:
 			return 2;
+			break;
 		case 898:
+			return 898;
 			break;
 	}
 }
@@ -183,6 +189,76 @@ TEST_CASE("TEST1", "[single-file]") {
 TEST_CASE("TEST2", "[single-file]") {
 	REQUIRE(1 == 1);
 	REQUIRE(2 == 2);
+}
+
+TEST_CASE("no parent > don't do it!", "blub") {
+	REQUIRE( (7 > 2 * 3)   == 1 );
+	REQUIRE( (7 > (2 * 3)) == 1 );
+	REQUIRE( ((7 > 2) * 3) == 3 );
+	INFO_LOG << "(7 > 2 * 3) = "   << (7 >  2 * 3)  << '\n';
+	INFO_LOG << "(7 > (2 * 3)) = " << (7 > (2 * 3)) << '\n';
+	INFO_LOG << "(7 > 2) * 3 = "   << (7 >  2)* 3   << '\n';
+}
+
+
+#define doubleA 4.4
+#define integerA 4
+
+TEST_CASE("variable declaration") {
+	{
+		int a = integerA;
+		INFO_LOG << "a: " << a << " should be: " << integerA << '\n';
+		REQUIRE(a == integerA);
+	}
+	{
+		int a(doubleA);
+		INFO_LOG << "a: " << a << " should be: " << doubleA << '\n';
+		REQUIRE(a == integerA);
+	}
+	{
+		int a{ integerA };
+		INFO_LOG << "a: " << a << " should be: " << integerA << '\n';
+		REQUIRE(a == integerA);
+	}
+	{
+		auto a{ doubleA };
+		INFO_LOG << "a: " << a << " should be: " << doubleA << '\n';
+		REQUIRE(int(a) == integerA);
+		REQUIRE(a == doubleA);
+	}
+}
+
+void setSlope(int value) {
+	(void)value;
+}
+
+
+TEST_CASE("variable declaration place") {
+	bool negativeSlope = true;
+
+	if (negativeSlope) {
+		int min = 12;
+		for (const auto &i : { 0, 1, 2}) {
+			setSlope(min);
+			INFO_LOG << "for loop: " << i << '\n';
+		}	
+		for (auto i : { 12, 13, 14 }) {
+			i %= 2;
+			INFO_LOG << "fol loop: " << i << '\n';
+		}
+	}
+	else {
+		int max = 23;
+		setSlope(max);
+	}
+
+	std::vector<bool> vi(20, 1); /** 20 items with value 1 */
+	INFO_LOG << "vector size: " << vi.size() << '\n';
+	for (auto nr : vi) {
+		INFO_LOG << nr << '\n';
+		//INFO_LOG << "blub";
+	}
+	INFO_LOG << '\n';
 }
 
 

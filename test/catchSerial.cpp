@@ -6,7 +6,7 @@
 #include "source/serial.h"
 #include <functional>
 
-Serial mySerial;
+//Serial mySerial;
 
 int test2() {
 	int blub = 3;
@@ -25,8 +25,8 @@ TEST_CASE("TEST3", "[single-file]") {
 		TEST_LOG << "e.what(): " << e.what() << '\n';
 	}
 
-	REQUIRE( mySerial.write(std::string("1234567890")) == false);
-	REQUIRE( mySerial.write(std::string("12345678901")) == true);
+	//REQUIRE( mySerial.write(std::string("1234567890")) == false);
+	//REQUIRE( mySerial.write(std::string("12345678901")) == true);
 
 	REQUIRE(test2() == 3);
 	REQUIRE(1 == 1);
