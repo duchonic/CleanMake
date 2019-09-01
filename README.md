@@ -32,6 +32,10 @@ add_library(
 	serial.cpp
 )
 ```
+## include directories
+```
+target_include_directories (Communication PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+```
 ## add executable
 ```
 add_executable(demo demo.cpp)
@@ -61,8 +65,11 @@ target_link_libraries (
 ## add cpack
 ```
 SET(CPACK_GENERATOR "ZIP")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "david hasselhoff")
 SET(CPACK_PACKAGE_NAME "demopack")
-include(CPACK)
+SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "False")
+INSTALL(TARGETS demo)
+INCLUDE(CPACK)
 ```
 ## add tests
 ```

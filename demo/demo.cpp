@@ -1,4 +1,4 @@
-#include "source/serial.h"
+#include "serial.h"
 #include "customLibs/helper.h"
 
 #include "interface/IOperation.h"
@@ -36,12 +36,6 @@ volatile bool bAbort = false;
 #define SPI_DEVICE_BUFFER_SIZE		256
 #define CHANNEL_TO_OPEN			0	/*0 for first available channel, 1 for next... */
 
-/******************************************************************************/
-/*		Global variables */
-/******************************************************************************/
-//static FT_HANDLE ftHandle[2];
-//static uint8 buffer[SPI_DEVICE_BUFFER_SIZE] = { 0 };
-
 //////////
 /// Forward declaration Section
 void mainProcedure();
@@ -51,26 +45,24 @@ void setUp();
 #define APP_CHECK_STATUS(exp) {if(exp!=FT_OK){printf("%s:%d:%s(): status(0x%x) \
 != FT_OK\n",__FILE__, __LINE__, __FUNCTION__,exp);exit(1);}else{;}};
 
-
-
 int main() {
-
 	DEBUG_LOG << "main entered" << '\n';
 
 	struct periodic_info info;
-
 
 	Serial mySerial;
 	Helper myHelper;
 
 	setUp();
-
+	
 	SLEEP_ms(1000);
 
 	mySerial.write("\n mainloop start");
 	while (!bAbort) {
-		getNextMsg(&info);
-		mySerial.write(".");
+		SLEEP_ms(1000);
+		//getNextMsg(&info);
+		//mySerial.write(".");
+		DEBUG_LOG << "mainloop" << std::endl;
 	}
 
 	return 0;
@@ -81,7 +73,7 @@ int main() {
 void setUp() {
 	DEBUG_LOG << "setup started" << std::endl;
 	// initialize operation (dispatcher)
-	OperationFactory::getOperation()->initDriver();
+	//OperationFactory::getOperation()->initDriver();
 }
 
 

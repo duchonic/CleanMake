@@ -5,7 +5,7 @@
 #ifdef IS_LINUX
 	#include <sys/time.h>
 #elif IS_MAC
-
+	#include <sys/time.h>
 #else
 	#include <sys/utime.h>
 #endif
@@ -73,11 +73,7 @@ char* TimeUtil::getCurrentDateTimeString()
 #ifdef IS_WINDOWS
 	struct tm newtime;
 	__time64_t long_time;
-	// Get time as 64-bit integer.
 	_time64(&long_time);
-	// Convert to local time.
-	//assert(_localtime64_s(&newtime, &long_time) == 0);
-	//sprintf_s(timeString, sizeof(timeString), "%d:%d:%d", newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
 #else
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
@@ -128,13 +124,13 @@ std::string TimeUtil::getCurrentMSTimeString()
 	timeStream << std::setfill('0') << std::setw(2) << st.wSecond ;
 	return timeStream.str();
 #elif IS_MAC
-    static char timeString[255];
-    //time_t t = time(NULL);
-    //struct tm tm = *localtime(&t);
-    //struct timeval  tv;
-    //gettimeofday(&tv, NULL);
-    //sprintf(timeString, "%02d:%02d:%02d:%03d", tm.tm_hour, tm.tm_min, tm.tm_sec, (int)(tv.tv_usec / 1000));
-    return timeString;
+	static char timeString[255];
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	struct timeval  tv;
+	gettimeofday(&tv, NULL);
+	sprintf(timeString, "%02d:%02d:%02d:%03d", tm.tm_hour, tm.tm_min, tm.tm_sec, (int)(tv.tv_usec / 1000));
+	return timeString;
 #endif
 
 }

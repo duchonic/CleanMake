@@ -13,6 +13,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	message(STATUS "Made with Windows")
 	add_definitions(-DIS_WINDOWS)
 else()
+	message(STATUS "Made with Mac")
 	add_definitions(-DIS_MAC)
 endif()
 
@@ -53,8 +54,10 @@ add_test(
 	COMMAND $<TARGET_FILE:testing> --success
 )
 
-
+#SET(CPACK_GENERATOR "STGZ")
 SET(CPACK_GENERATOR "ZIP")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "david hasselhoff")
 SET(CPACK_PACKAGE_NAME "demopack")
 SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "False")
-include(CPACK)
+INSTALL(TARGETS demo)
+INCLUDE(CPACK)

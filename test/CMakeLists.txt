@@ -7,7 +7,6 @@ add_executable (
 	catchTimer.cpp
 )
 
-
 if (WIN32)
 	message(STATUS "Testing Libraries")
 	

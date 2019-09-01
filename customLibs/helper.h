@@ -22,7 +22,7 @@
 
 
 #ifdef IS_MAC
-	#define SLEEP_ms(delay_ms) sleep(delay_ms)
+	#define SLEEP_ms(delay_ms) usleep(delay_ms*1000)
 #elif IS_LINUX
 	#define SLEEP_ms(delay_ms) sleep(delay_ms)
 #elif IS_VISUAL_STUDIO
