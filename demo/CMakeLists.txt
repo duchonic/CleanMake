@@ -1,10 +1,10 @@
-# Add executable called "helloDemo" that is built from the source files
-# "demo.cxx" and "demo_b.cxx". The extensions are automatically found.
+# Add executable called "demo" that is built from the source files "demo.cpp"
+# The extensions are automatically found.
 add_executable (demo demo.cpp)
 
-# Link the executable to the Hello library. Since the Hello library has
+# Link the executable to the libraries. Since the Hello library has
 # public include directories we will use those link directories when building
-# helloDemo
+# demo
 
 if (WIN32)
 	message(STATUS "Search Windows libraries")

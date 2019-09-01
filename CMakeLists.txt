@@ -52,3 +52,9 @@ add_test(
 	TEST1 catch_test
 	COMMAND $<TARGET_FILE:testing> --success
 )
+
+
+SET(CPACK_GENERATOR "ZIP")
+SET(CPACK_PACKAGE_NAME "demopack")
+SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "False")
+include(CPACK)

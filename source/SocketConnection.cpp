@@ -38,10 +38,6 @@ SocketConnection::~SocketConnection()
 void SocketConnection::initialize(){
 	DEBUG_LOG << "initialize socket connection" << '\n';
 
-#ifdef IS_WINDOWS
-
-#endif
-
 #ifdef IS_VISUAL_STUDIO	
 	struct addrinfo* result = NULL;
 	struct addrinfo hints;
