@@ -64,13 +64,18 @@ int switchTest(int i) {
 	switch (i){
 		default:
 			return 99;
+			break;
 		case 0:
+			return 0;
 			break;
 		case 1:
 			return 1;
+			break;
 		case 2:
 			return 2;
+			break;
 		case 898:
+			return 898;
 			break;
 	}
 }
@@ -108,15 +113,6 @@ SCENARIO("ARRAYS", "[array]") {
 			INFO_LOG << "testVector size: " << testVector.size() << '\n';
 			INFO_LOG << "testVector at 0: " << testVector[0] << '\n';
 			INFO_LOG << "testVector at 9: " << testVector.at(9) << '\n';
-			//INFO_LOG << "testVector at 10" << testVector.at(19) << '\n';
-
-			//for (auto entries : testVector) {
-			//	std::cout << entries << '\n';
-			//}
-
-			//for (auto s : testArray) {
-			//	std::cout << s;
-			//}
 
 			THEN("size changes ") {
 				REQUIRE(testArray.at(4) == 12.4);

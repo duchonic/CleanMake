@@ -4,6 +4,7 @@
 #include "catch.h"
 #include "customLibs/helper.h"
 
+#ifdef IS_WINDOWS
 #include <sys/timerfd.h>
 
 SCENARIO("test some timer") {
@@ -39,3 +40,4 @@ SCENARIO("test some timer") {
 		}
 	}
 }
+#endif

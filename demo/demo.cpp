@@ -1,16 +1,13 @@
-#include "serial.h"
-//#include "xmlEventParser.h"
+#include "source/serial.h"
 #include "customLibs/helper.h"
 
 #include "interface/IOperation.h"
-#include "OperationFactory.h"
+#include "source/OperationFactory.h"
 
 #include <functional>
 #include <thread>
 #include <chrono>
 #include <ratio>
-
-
 
 using namespace std;
 using namespace chrono_literals;

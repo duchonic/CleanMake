@@ -27,11 +27,7 @@ private:
 	#elif IS_LINUX
 		
 	#else
-		DCB dcb;
-		HANDLE hCom;
-		BOOL fSuccess;
-		TCHAR* pcCommPort = NULL; //TEXT("./COM10"); //
-		DWORD dwRet;
+		
 	#endif
 
 
