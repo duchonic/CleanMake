@@ -1,4 +1,5 @@
-# CleanMake
+# CMakeLists.txt
+
 ## set project
 ```
 cmake_minimum_required (VERSION 3.0)
@@ -70,4 +71,30 @@ add_test(
 	TEST1 catch_test
 	COMMAND $<TARGET_FILE:testing> --success
 )
+```
+
+# running cmake
+## setup
+```
+> git clone https://github.com/duchonic/CleanMake.git
+> mkdir build
+> cd build
+```
+## run
+
+### linux
+```
+> cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=/usr/share/buildroot/toolchainfile.cmake -DBUILD_TYPE=Release -DCMAKE_ECLIPSE_VERSION=4.9 ~/CleanMake/
+```
+### windows
+```
+> cmake -G "Visual Studio 16 2019" -A Win32 -DCMAKE_BUILD_TYPE=Debug ../CleanMake
+```
+### mac
+```
+> cmake ../CleanMake
+```
+## create a package
+```
+> cpack
 ```
