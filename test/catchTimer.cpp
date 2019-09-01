@@ -4,7 +4,7 @@
 #include "catch.h"
 #include "customLibs/helper.h"
 
-#ifdef IS_WINDOWS
+#ifdef IS_LINUX
 #include <sys/timerfd.h>
 
 SCENARIO("test some timer") {
