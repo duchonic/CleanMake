@@ -91,8 +91,6 @@ SCENARIO("BITARRAY", "BITARRAY") {
 			bitArray.at(3) = true;
 		}
 	}
-
-
 }
 
 SCENARIO("ARRAYS", "[array]") {
