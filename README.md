@@ -91,7 +91,9 @@ add_test(
 
 ### linux
 ```
-> cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=/usr/share/buildroot/toolchainfile.cmake -DBUILD_TYPE=Release -DCMAKE_ECLIPSE_VERSION=4.9 ~/CleanMake/
+> cmake -G "Eclipse CDT4 - Unix Makefiles" 
+	-DCMAKE_TOOLCHAIN_FILE=/usr/share/buildroot/toolchainfile.cmake -DBUILD_TYPE=Release 
+	-DCMAKE_ECLIPSE_VERSION=4.9 ~/CleanMake/
 ```
 ### windows
 ```
@@ -353,7 +355,8 @@ bool SocketConnection::receiveData(std::string& strData)
 		}
 
 #elif IS_LINUX
-		ssize_t size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), BUFF_SIZE - (_msgEnd + 1), MSG_DONTWAIT);
+		ssize_t size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), 
+				BUFF_SIZE - (_msgEnd + 1), MSG_DONTWAIT);
 		if (size < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ENOENT) {
 			ERROR_LOG("Lost connection to SYS");
 			raise(SIGUSR1); // raise SIGUSR1 to make a proper shutdown
