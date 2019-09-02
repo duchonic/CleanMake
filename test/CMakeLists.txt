@@ -5,6 +5,7 @@ add_executable (
 	catchDriver.cpp
 	catchInterface.cpp
 	catchTimer.cpp
+	catchThread.cpp
 )
 
 if (WIN32)
