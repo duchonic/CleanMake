@@ -47,19 +47,19 @@ if(${BUILD_TYPE} STREQUAL "Debug")
 ## link libraries
 ```
 target_link_libraries (
-    demo
-    LINK_PUBLIC
-    Source
-    Factory
-    CustomLib
-    Communication
-    Collector
-    wsock32
-    ws2_32
-    "${PROJECT_SOURCE_DIR}/winLibs/debug/ftdi1.lib"
-    "${PROJECT_SOURCE_DIR}/winLibs/debug/libiconvStaticD.lib"
-    "${PROJECT_SOURCE_DIR}/winLibs/debug/libusb-1.0.lib"
-    "${PROJECT_SOURCE_DIR}/winLibs/debug/libxml2-static.lib"
+	demo
+	LINK_PUBLIC
+	Source
+	Factory
+	CustomLib
+	Communication
+	Collector
+	wsock32
+	ws2_32
+	"${PROJECT_SOURCE_DIR}/winLibs/debug/ftdi1.lib"
+	"${PROJECT_SOURCE_DIR}/winLibs/debug/libiconvStaticD.lib"
+	"${PROJECT_SOURCE_DIR}/winLibs/debug/libusb-1.0.lib"
+	"${PROJECT_SOURCE_DIR}/winLibs/debug/libxml2-static.lib"
 )
 ```
 ## add cpack
@@ -184,218 +184,14 @@ Concurrently calling join() on the same std::thread object from multiple threads
 #endif
 ```
 
-# socket
 
-## includes
-```cpp
-#ifdef IS_LINUX
-    #include <sys/socket.h>
-    #include <sys/ioctl.h>
-    #include <arpa/inet.h>
-    #include <net/if.h>
-    #include <netinet/tcp.h>
-    #include <netinet/in.h>
-#endif
-
-#ifdef IS_WINDOWS
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-	#include <winsock2.h>
-	#include <ws2tcpip.h>
-	#define DEFAULT_PORT "27015"
-#endif
-```
-
-## initialize
-
-```cpp
-#ifdef IS_WINDOWS
-	struct addrinfo* result = NULL;
-	struct addrinfo hints;
-	// Declare and initialize variables
-	WSADATA wsaData;
-	// Initialize Winsock
-	WSAStartup(MAKEWORD(2, 2), &wsaData);
-	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_INET;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_protocol = IPPROTO_TCP;
-	hints.ai_flags = AI_PASSIVE;
-
-	// Resolve the local address and port to be used by the server
-	getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
-#endif
-
-    _socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-#ifdef IS_WINDOWS
-	assert(_socket != INVALID_SOCKET);
-#else
-	assert(_socket != -1);
-#endif
-
-    memset(&_pRemoteAddress, 0, sizeof(_pRemoteAddress));   /* Clear struct */
-    _pRemoteAddress.sin_family = AF_INET;					/* Internet/IP */
-    _pRemoteAddress.sin_addr.s_addr = htonl(INADDR_ANY);	/* Incoming addr */
-    _pRemoteAddress.sin_port = htons(PORT_NBR);				/* server port */
-    bind(_socket, (struct sockaddr *) &_pRemoteAddress, sizeof(_pRemoteAddress));
-```
-## connect
-```cpp
-bool SocketConnection::connect()
-{
-	if (listen(_socket, MAXPENDING) < 0) {
-		DEBUG_LOG("socket error: " << listen(_socket, MAXPENDING));
-#ifdef IS_WINDOWS
-		DEBUG_LOG("errno: " << WSAGetLastError());
-#endif
-		return false;
-	}
-		
-	#ifdef IS_WINDOWS
-		int clientlen = sizeof(_pClientAddress);
-	#else
-		unsigned int clientlen = sizeof(_pClientAddress);
-	#endif
-
-    DEBUG_LOG("Waiting for connection...");
-    if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
-    	return false;
-    }
-
-#ifdef IS_WINDOWS
-	//-------------------------
-	// Set the socket I/O mode: In this case FIONBIO
-	// enables or disables the blocking mode for the 
-	// socket based on the numerical value of iMode.
-	// If iMode = 0, blocking is enabled; 
-	// If iMode != 0, non-blocking mode is enabled.
-	u_long iMode = 1;
-	ioctlsocket(_iSocketStream, FIONBIO, &iMode);
-#endif
-
-	INFO_LOG("Connected to at " << inet_ntoa(_pClientAddress.sin_addr));
-	return true;
-}
-```
-## disconnect
-```cpp
-void SocketConnection::disconnect()
-{
-#ifndef IS_WINDOWS
-	close(_iSocketStream);
-	close(_socket);
-#else
-	closesocket(_iSocketStream);
-	closesocket(_socket);
-#endif
-	INFO_LOG( "socket disconnected" );
-}
-```
-
-## send
-```cpp
-bool SocketConnection::sendData(const std::string& strData)
-{
-#ifndef IS_WINDOWS
-	ssize_t rc = write(_iSocketStream, strData.c_str(), strData.size() + 1);
-#else
-	int rc = send(_iSocketStream, strData.c_str(), strData.size() + 1, 0);
-#endif
-	return rc >= 0;
-}
-```
-
-## canReceive
-```cpp
-bool SocketConnection::canReceiveData()
-{
-	char buffer;
-
-#ifdef IS_WINDOWS
-	int size = recv(_iSocketStream, &buffer, 1, MSG_PEEK);
-	if(size < 0 && errno != EAGAIN){
-		//ERROR_LOG("Lost connection to SYS size:" << size  << " errono: " << errno);
-		//raise(SIGTERM); // raise SIGTERM to make a proper shutdown
-        //return false;
-    }
-
-#elif IS_LINUX
-	ssize_t size = recv(_iSocketStream, &buffer, 1, MSG_DONTWAIT | MSG_PEEK);
-	if (size < 0 && errno != EAGAIN) {
-		ERROR_LOG("Lost connection to SYS");
-		raise(SIGUSR1); // raise SIGUSR1 to make a proper shutdown
-		return false;
-	}
-#endif
-
-	if ( (_msgEnd >= 0) || (size > 0)) {
-    	return true;
-	}
-	return false;
-}
-```
-
-## receive
-
-```cpp
-bool SocketConnection::receiveData(std::string& strData)
-{
-	char* endTag = 0;
-    strData.clear();
-
-	while(!endTag){
-
-#ifdef IS_WINDOWS
-		int size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), BUFF_SIZE - (_msgEnd + 1), 0);
-		if (size < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ENOENT) {
-			//ERROR_LOG("Lost connection to SYS size:" << size << " errono: " << errno);
-			//raise(SIGTERM); // raise SIGTERM to make a proper shutdown
-			//return false;
-		}
-
-#elif IS_LINUX
-		ssize_t size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), 
-				BUFF_SIZE - (_msgEnd + 1), MSG_DONTWAIT);
-		if (size < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ENOENT) {
-			ERROR_LOG("Lost connection to SYS");
-			raise(SIGUSR1); // raise SIGUSR1 to make a proper shutdown
-			return false;
-		}
-#endif
-
-        if(size < 0)
-        	size = 0;
-		_buffer[_msgEnd + size + 1] = '\0';
-        endTag = strstr(_buffer, MESSAGE_END);
-		if(endTag){
-			// whole message received
-			strData.append(_buffer, endTag + strlen(MESSAGE_END));
-			
-			// if we read too much copy it to the front of the buffer
-			int i = 0;
-            char* p = endTag + strlen(MESSAGE_END);
-			while(p != &(_buffer[_msgEnd + 1]) + size){
-				_buffer[i] = *p;
-				++p;
-				++i;
-			}
-			_msgEnd = i - 1;
-		}else{
-			_msgEnd += size;
-		}
-
-	}
-	return true;
-}
-```
 
 # serial
 
 ## includes
 ```cpp
 #ifdef IS_LINUX
-    #include <termios.h> /* POSIX terminal control definitions */
+	#include <termios.h> /* POSIX terminal control definitions */
 #endif
 
 #ifdef IS_WINDOWS
@@ -407,24 +203,24 @@ bool SocketConnection::receiveData(std::string& strData)
 
 ### posix
 ```cpp
- std::ostringstream ss;
-    //if(_comPort == COM_3){
-    //	ss << "/dev/ttyS0";
-    //}else{
-      ss << DEV_FILE << _comPort - 1;
-    //}
+	std::ostringstream ss;
+	//if(_comPort == COM_3){
+	//	ss << "/dev/ttyS0";
+	//}else{
+		ss << DEV_FILE << _comPort - 1;
+	//}
 
-      _fd = open(ss.str().c_str(), O_RDWR | O_NOCTTY | O_SYNC);
-    if (_fd == -1){
-       /*
-        * Could not open the port.
-        */
-        throw std::runtime_error("open_port: Unable to open " + ss.str());
-    }else{
-        //unsigned long opt = 1;
-        //ioctl(fd, FIONBIO, opt);  // dont block on read
-        //fcntl(fd, F_SETFL, 0);
-    }
+		_fd = open(ss.str().c_str(), O_RDWR | O_NOCTTY | O_SYNC);
+	if (_fd == -1){
+		/*
+		* Could not open the port.
+		*/
+		throw std::runtime_error("open_port: Unable to open " + ss.str());
+	}else{
+		//unsigned long opt = 1;
+		//ioctl(fd, FIONBIO, opt);  // dont block on read
+		//fcntl(fd, F_SETFL, 0);
+	}
 ```
 ### ftd2xx
 ```cpp
@@ -503,26 +299,26 @@ int SerialConnection::readCom(char* pBuffer, const int iSize)
 ```cpp
 int SerialConnection::nrOfBytesAvailable()
 {
-    int bytesAvailable;
-    ioctl(_fd, FIONREAD, &bytesAvailable);
-    return bytesAvailable;
+	int bytesAvailable;
+	ioctl(_fd, FIONREAD, &bytesAvailable);
+	return bytesAvailable;
 }
 
 void SerialConnection::setNumberOfDataBits(char cNr)
 {
-    _options.c_cflag &= ~CSIZE;
-    switch(cNr){
-        case 5: _options.c_cflag |= CS5;
-                break;
-        case 6: _options.c_cflag |= CS6;
-                break;
-        case 7: _options.c_cflag |= CS7;
-                break;
-        case 8: _options.c_cflag |= CS8;
-                break;
-        default:
-            _options.c_cflag |= CS8;
-    }
+	_options.c_cflag &= ~CSIZE;
+	switch(cNr){
+		case 5: _options.c_cflag |= CS5;
+				break;
+		case 6: _options.c_cflag |= CS6;
+				break;
+		case 7: _options.c_cflag |= CS7;
+				break;
+		case 8: _options.c_cflag |= CS8;
+				break;
+		default:
+			_options.c_cflag |= CS8;
+	}
 }
 ```
 
@@ -564,5 +360,240 @@ void SerialConnection::setNumberOfDataBits(char cNr)
 
 	ftStatus = FT_SetDataCharacteristics(ftHandle, WordLength, StopBits, Parity);
 	assert(ftStatus == FT_OK);
+}
+```
+
+# socket
+
+## includes
+
+### linux
+sys/socket.h
+```cpp
+int socket(int domain, int type, int protocol);
+int bind(int socket, const struct sockaddr *address, socklen_t address_len);
+int listen(int socket, int backlog);
+int accept(int socket, struct sockaddr *address, socklen_t *address_len);
+ssize_t recv(int socket, void *buffer, size_t length, int flags); // flags : MSG_PEEK, MSG_OOB, MSG_WAITALL
+//ssize_t send(int socket, const void *message, size_t length, int flags);
+```
+unistd.h
+```cpp
+ssize_t write(int fd, const void *buf, size_t count);
+```
+### windows
+winsock2.h
+```cpp
+SOCKET WSAAPI socket(int af,int type,int protocol);
+int WSAAPI bind(SOCKET s,const sockaddr *name, int namelen);
+int WSAAPI listen(SOCKET s, int backlog);
+SOCKET WSAAPI accept(SOCKET s, sockaddr *addr, int *addrlen);
+int WSAAPI recv(SOCKET s, char *buf, int len, int flags); // flags: MSG_PEEK, MSG_OOB, MSG_WAITALL
+int WSAAPI send(SOCKET s, const char *buf, int len, int flags);
+```
+
+
+```cpp
+#ifdef IS_LINUX
+	#include <sys/socket.h>
+	#include <sys/ioctl.h>
+	#include <arpa/inet.h>
+	#include <net/if.h>
+	#include <netinet/tcp.h>
+	#include <netinet/in.h>
+	#include <unistd.h>
+#endif
+
+#ifdef IS_WINDOWS
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#include <winsock2.h>
+	#include <ws2tcpip.h>
+	#define DEFAULT_PORT "27015"
+#endif
+```
+
+## initialize
+
+```cpp
+#ifdef IS_WINDOWS
+	struct addrinfo* result = NULL;
+	struct addrinfo hints;
+	// Declare and initialize variables
+	WSADATA wsaData;
+	// Initialize Winsock
+	WSAStartup(MAKEWORD(2, 2), &wsaData);
+	ZeroMemory(&hints, sizeof(hints));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_flags = AI_PASSIVE;
+
+	// Resolve the local address and port to be used by the server
+	getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
+#endif
+
+    _socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+#ifdef IS_WINDOWS
+	assert(_socket != INVALID_SOCKET);
+#else
+	assert(_socket != -1);
+#endif
+
+	memset(&_pRemoteAddress, 0, sizeof(_pRemoteAddress));   /* Clear struct */
+	_pRemoteAddress.sin_family = AF_INET;					/* Internet/IP */
+	_pRemoteAddress.sin_addr.s_addr = htonl(INADDR_ANY);	/* Incoming addr */
+	_pRemoteAddress.sin_port = htons(PORT_NBR);				/* server port */
+	bind(_socket, (struct sockaddr *) &_pRemoteAddress, sizeof(_pRemoteAddress));
+```
+## connect
+```cpp
+bool SocketConnection::connect()
+{
+	if (listen(_socket, MAXPENDING) < 0) {
+		DEBUG_LOG("socket error: " << listen(_socket, MAXPENDING));
+#ifdef IS_WINDOWS
+		DEBUG_LOG("errno: " << WSAGetLastError());
+#endif
+		return false;
+	}
+		
+	#ifdef IS_WINDOWS
+		int clientlen = sizeof(_pClientAddress);
+	#else
+		unsigned int clientlen = sizeof(_pClientAddress);
+	#endif
+
+	DEBUG_LOG("Waiting for connection...");
+	if ((_iSocketStream = accept(_socket, (struct sockaddr *) &_pClientAddress, &clientlen)) < 0) {
+		return false;
+	}
+
+#ifdef IS_WINDOWS
+	//-------------------------
+	// Set the socket I/O mode: In this case FIONBIO
+	// enables or disables the blocking mode for the 
+	// socket based on the numerical value of iMode.
+	// If iMode = 0, blocking is enabled; 
+	// If iMode != 0, non-blocking mode is enabled.
+	u_long iMode = 1;
+	ioctlsocket(_iSocketStream, FIONBIO, &iMode);
+#endif
+
+	INFO_LOG("Connected to at " << inet_ntoa(_pClientAddress.sin_addr));
+	return true;
+}
+```
+## disconnect
+```cpp
+void SocketConnection::disconnect()
+{
+#ifndef IS_WINDOWS
+	close(_iSocketStream);
+	close(_socket);
+#else
+	closesocket(_iSocketStream);
+	closesocket(_socket);
+#endif
+	INFO_LOG( "socket disconnected" );
+}
+```
+
+## send
+```cpp
+bool SocketConnection::sendData(const std::string& strData)
+{
+#ifndef IS_WINDOWS
+	ssize_t rc = write(_iSocketStream, strData.c_str(), strData.size() + 1);
+#else
+	int rc = send(_iSocketStream, strData.c_str(), strData.size() + 1, 0);
+#endif
+	return rc >= 0;
+}
+```
+
+## canReceive
+```cpp
+bool SocketConnection::canReceiveData()
+{
+	char buffer;
+
+#ifdef IS_WINDOWS
+	int size = recv(_iSocketStream, &buffer, 1, MSG_PEEK);
+	if(size < 0 && errno != EAGAIN){
+		//ERROR_LOG("Lost connection to SYS size:" << size  << " errono: " << errno);
+		//raise(SIGTERM); // raise SIGTERM to make a proper shutdown
+		//return false;
+	}
+
+#elif IS_LINUX
+	ssize_t size = recv(_iSocketStream, &buffer, 1, MSG_DONTWAIT | MSG_PEEK);
+	if (size < 0 && errno != EAGAIN) {
+		ERROR_LOG("Lost connection to SYS");
+		raise(SIGUSR1); // raise SIGUSR1 to make a proper shutdown
+		return false;
+	}
+#endif
+
+	if ( (_msgEnd >= 0) || (size > 0)) {
+		return true;
+	}
+	return false;
+}
+```
+
+## receive
+
+```cpp
+bool SocketConnection::receiveData(std::string& strData)
+{
+	char* endTag = 0;
+	strData.clear();
+
+	while(!endTag){
+
+#ifdef IS_WINDOWS
+		int size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), 
+				BUFF_SIZE - (_msgEnd + 1), 0);
+		if (size < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ENOENT) {
+			//ERROR_LOG("Lost connection to SYS size:" << size << " errono: " << errno);
+			//raise(SIGTERM); // raise SIGTERM to make a proper shutdown
+			//return false;
+		}
+
+#elif IS_LINUX
+		ssize_t size = recv(_iSocketStream, &(_buffer[_msgEnd + 1]), 
+				BUFF_SIZE - (_msgEnd + 1), MSG_DONTWAIT);
+		if (size < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ENOENT) {
+			ERROR_LOG("Lost connection to SYS");
+			raise(SIGUSR1); // raise SIGUSR1 to make a proper shutdown
+			return false;
+		}
+#endif
+
+		if(size < 0)
+			size = 0;
+		_buffer[_msgEnd + size + 1] = '\0';
+		endTag = strstr(_buffer, MESSAGE_END);
+		if(endTag){
+			// whole message received
+			strData.append(_buffer, endTag + strlen(MESSAGE_END));
+			
+			// if we read too much copy it to the front of the buffer
+			int i = 0;
+			char* p = endTag + strlen(MESSAGE_END);
+			while(p != &(_buffer[_msgEnd + 1]) + size){
+				_buffer[i] = *p;
+				++p;
+				++i;
+			}
+			_msgEnd = i - 1;
+		}else{
+			_msgEnd += size;
+		}
+
+	}
+	return true;
 }
 ```
