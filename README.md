@@ -128,18 +128,18 @@ add_test(
 
 ```cpp
 bool AppDriver::measure(){
-    ...
-			g_closeThread = false;
+	...
+		g_closeThread = false;
 
 #ifdef IS_LINUX
-			// start thread that check for LastTrigger
-			pthread_t thread_id;
-			pthread_attr_t attr;
-			pthread_attr_init(&attr);
-			pthread_create(&thread_id, &attr, &checkForAck, &isLastTrigger);
+		// start thread that check for LastTrigger
+		pthread_t thread_id;
+		pthread_attr_t attr;
+		pthread_attr_init(&attr);
+		pthread_create(&thread_id, &attr, &checkForAck, &isLastTrigger);
 #elif IS_WINDOWS
-            // start thread that check for LastTrigger
-			std::thread thread_id(&checkForAck, &isLastTrigger);
+		// start thread that check for LastTrigger
+		std::thread thread_id(&checkForAck, &isLastTrigger);
 #endif
 ```
 
@@ -174,11 +174,11 @@ No synchronization is performed on *this itself. <br>
 Concurrently calling join() on the same std::thread object from multiple threads constitutes a data race that results in undefined behavior. 
 
 ```cpp
-							g_closeThread = true;
+	g_closeThread = true;
 #ifdef IS_LINUX
-							pthread_join(thread_id, 0);
+	pthread_join(thread_id, 0);
 #elif IS_WINDOWS
-							thread_id.join();
+	thread_id.join();
 #endif
 ```
 
