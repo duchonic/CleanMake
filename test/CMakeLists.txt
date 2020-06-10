@@ -1,11 +1,14 @@
 add_executable (
 	testing
 	catchMain.cpp
-	catchSerial.cpp
-	catchDriver.cpp
-	catchInterface.cpp
-	catchTimer.cpp
-	catchThread.cpp
+	catchClass.cpp
+	#catchSerial.cpp
+	#catchDriver.cpp
+	#catchInterface.cpp
+	#catchTimer.cpp
+	#catchThread.cpp
+	#catchVirtual.cpp
+	#catchJson.cpp
 )
 
 if (WIN32)

@@ -1,0 +1,174 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "source",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "customLibs",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "customLibs",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "demo",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "demo",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "test",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "test",
+					"targetIndexes" : 
+					[
+						6
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "cross",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Collector::@411ffd8adc737496fe19",
+					"jsonFile" : "target-Collector-Debug-dac31289602f0164254a.json",
+					"name" : "Collector",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Communication::@411ffd8adc737496fe19",
+					"jsonFile" : "target-Communication-Debug-09c148cc08982942bfdb.json",
+					"name" : "Communication",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "CustomLib::@1720262359a9c0a22b4f",
+					"jsonFile" : "target-CustomLib-Debug-52e48d719c8a285136de.json",
+					"name" : "CustomLib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Factory::@411ffd8adc737496fe19",
+					"jsonFile" : "target-Factory-Debug-b058a037ec76fed6497e.json",
+					"name" : "Factory",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Source::@411ffd8adc737496fe19",
+					"jsonFile" : "target-Source-Debug-a87422f9edfc3985d523.json",
+					"name" : "Source",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "demo::@7f23e6ca181cc91d5724",
+					"jsonFile" : "target-demo-Debug-267a62e405fe27a1bf13.json",
+					"name" : "demo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "testing::@36f028580bb02cc8272a",
+					"jsonFile" : "target-testing-Debug-027f7e62930641c19d43.json",
+					"name" : "testing",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "W:/Work/evatec_GSM/gsm1102/CleanMake/CleanMake/out/build/x86-Debug",
+		"source" : "W:/Work/evatec_GSM/gsm1102/CleanMake/CleanMake"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

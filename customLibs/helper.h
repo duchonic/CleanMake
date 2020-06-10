@@ -45,7 +45,7 @@ class Helper{
 public:
   Helper();
   ~Helper();
-
+  void test(void);
 private:
 
 };

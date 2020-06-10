@@ -21,7 +21,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	message(STATUS "Visual Studio C++")
 	add_definitions(-DIS_VISUAL_STUDIO -D_HAS_AUTO_PTR_ETC)
 	#debug
-	set(CMAKE_CXX_FLAGS "/EHsc /MDd /Zi /Ob0 /Od /RTC1 /Wall")
+	set(CMAKE_CXX_FLAGS "/EHsc /MDd /Zi /Ob0 /Od /RTC1 /Wall /analyze /EHa")
 	#release
 	#set(CMAKE_CXX_FLAGS_RELEASE "/MD /O2 /Ob2 /DNDEBUG")
 endif()

@@ -58,6 +58,9 @@ int main() {
 	SLEEP_ms(1000);
 
 	mySerial.write("\n mainloop start");
+
+	myHelper.test();
+
 	while (!bAbort) {
 		SLEEP_ms(1000);
 		//getNextMsg(&info);

@@ -20,3 +20,20 @@ Helper::Helper(){
 Helper::~Helper(){
   STATE_LOG << "deconstructor" << '\n';
 }
+
+void Helper::test(void) 
+{
+	bool input = true;
+	bool test = true;
+
+	if (input != test) {
+		return;
+	}
+
+	if (input != test) {
+		DEBUG_LOG << "a" << std::endl;
+	}
+	else {
+		DEBUG_LOG << "b" << std::endl;
+	}
+}
