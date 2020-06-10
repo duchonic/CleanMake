@@ -9,8 +9,8 @@
 #include <iomanip>        // std::put_time
 #include <cstdlib>
 
-#include "TimeUtil.h"
-#include "Timer.h"
+#include "timeUtil.h"
+#include "timer.h"
 
 
 static const int MAIN_CYCLE_TIME_ms = 20;
@@ -101,7 +101,7 @@ void sleepUntilNextSlot(void) {
 }
 
 static const int CATCHTESTDELAY_ms = MAIN_CYCLE_TIME_ms;
-static const int RUNS = 50;
+static const int RUNS = 200;
 
 void simulateMainProcedure(void) {
 	SLEEP_ms((std::rand() % (CATCHTESTDELAY_ms * 2)) + 1);
