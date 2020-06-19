@@ -38,5 +38,7 @@ else()
 		CustomLib
 		Communication
 		Collector
+		Lightsource
+		FWProfile
 	)
 endif()

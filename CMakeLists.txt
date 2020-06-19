@@ -40,6 +40,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "add linux include folders")
 	include_directories(
 		./source
+		./FWProfile
 		#/opt/gsm1101/host/usr/i586-buildroot-linux-uclibc/sysroot/usr/include
 	)
 endif()
@@ -56,10 +57,11 @@ add_test(
 	COMMAND $<TARGET_FILE:testing> --success
 )
 
-#SET(CPACK_GENERATOR "STGZ")
-SET(CPACK_GENERATOR "ZIP")
-SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "david hasselhoff")
-SET(CPACK_PACKAGE_NAME "demopack")
-SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "False")
-INSTALL(TARGETS demo)
-INCLUDE(CPACK)
+if(CMAKE_SYTEM_NAME STREQUAL "Windows")
+	SET(CPACK_GENERATOR "ZIP")
+	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "david hasselhoff")
+	SET(CPACK_PACKAGE_NAME "demopack")
+	SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "False")
+	INSTALL(TARGETS demo)
+	INCLUDE(CPACK)
+endif()
