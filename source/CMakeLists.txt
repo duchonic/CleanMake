@@ -20,4 +20,12 @@ add_library (
 	Source
 	SysOperation.cpp
 )
-target_include_directories (Source PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_library (
+	Lightsource
+	Lightsource.cpp
+	LightsourceManager.cpp
+)
+
+
+#target_include_directories (Source PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -34,6 +34,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 		"C:/cLibs/xmlwrapp/include"
 		"C:/cLibs/libxml2-2.7.8.win32/include"
 		"C:/cLibs/iconv-1.9.2.win32/include"
+		"FWProfile"
 	)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(STATUS "add linux include folders")
@@ -47,6 +48,7 @@ add_subdirectory (source)
 add_subdirectory (customLibs)
 add_subdirectory (demo)
 add_subdirectory (test)
+add_subdirectory (FWProfile)
 
 enable_testing()
 add_test(

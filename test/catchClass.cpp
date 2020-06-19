@@ -33,13 +33,4 @@ class RateFromExtrema {
     int iTime;
 };
 
-TEST_CASE("class") {
-  
-  RateFromExtrema mRateFromExtrema;
 
-  mRateFromExtrema.setRate(898.0f);
-  REQUIRE(mRateFromExtrema.getRate() == 898.0f);
-  mRateFromExtrema.calcNewRate();
-  REQUIRE(mRateFromExtrema.getRate() == 898.1f);
-  DEBUG_LOG << "test passed" << std::endl;
-}

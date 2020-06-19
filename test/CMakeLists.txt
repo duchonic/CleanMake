@@ -1,7 +1,8 @@
 add_executable (
 	testing
 	catchMain.cpp
-	catchClass.cpp
+	catchStateMachine.cpp
+	#catchClass.cpp
 	#catchSerial.cpp
 	#catchDriver.cpp
 	#catchInterface.cpp
@@ -9,10 +10,11 @@ add_executable (
 	#catchThread.cpp
 	#catchVirtual.cpp
 	#catchJson.cpp
+
 )
 
 if (WIN32)
-	message(STATUS "Testing Libraries")
+	message(STATUS "Testing Libs")
 	
 	target_link_libraries (
 		testing
@@ -24,6 +26,8 @@ if (WIN32)
 		Collector
 		wsock32
 		ws2_32
+		Lightsource
+		FWProfile
 	)
 else()
 	target_link_libraries (
