@@ -106,9 +106,7 @@ void mainProcedure() {
 
 			if (pOperation->hasMessageArrived()) {
 				//IMessage* pMessage = pOperation->getMessage();
-
 				//INFO_LOG << "message: " << pMessage->toString() << '\n';
-
 				//IMessageProcessor* processor = MessageProcessorFactory::getMessageProcessor();
 				//processor->processMessage(pMessage);
 			}

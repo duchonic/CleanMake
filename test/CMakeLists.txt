@@ -1,7 +1,7 @@
 add_executable (
 	testing
 	catchMain.cpp
-	catchStateMachine.cpp
+	#catchStateMachine.cpp
 	#catchClass.cpp
 	#catchSerial.cpp
 	#catchDriver.cpp
@@ -10,6 +10,7 @@ add_executable (
 	#catchThread.cpp
 	#catchVirtual.cpp
 	#catchJson.cpp
+	catchRecursion.cpp
 
 )
 
