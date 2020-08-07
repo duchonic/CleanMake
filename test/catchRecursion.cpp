@@ -67,7 +67,7 @@ TEST_CASE("combi from tutorialspoint.com") {
 	std::cout << "sum is:" << sum << " third:" << sum/2 << std::endl;
 
 	std::cout << "\n";
-	for ( auto i: {8} ) {
+	for ( auto i: {2} ) {
 		std::cout << "\nThe all possible combination of length " << i << " for the given array set:\n";
 		Combi(input, i, 0, 0);
 	}

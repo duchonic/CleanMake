@@ -4,7 +4,7 @@
 #include "catch.h"
 #include "helper.h"
 
-const int spectrumSize = 1024;
+const int spectrumSize = 4;
 
 // Generates a comma sperated string of the spectrum data
 std::string toString(const std::array<long, spectrumSize>& spec, const double iRepFactor) {
@@ -81,12 +81,13 @@ std::string toStringClean(const std::array<long, spectrumSize>& spectrum, const 
 
 
 TEST_CASE("test the to Strings Functions") {
-	std::array<long, spectrumSize> spectrum;
-	for (int tests = 0; tests < 10; tests++) {
-		for (long &value : spectrum) {
-			value = (LONG_MAX/ RAND_MAX) * std::rand();
-		}
-		std::cout << toStringClean(spectrum, 1) << std::endl;
-		REQUIRE( toStringClean(spectrum, 1) == toString(spectrum, 1) );
+	std::array<long, spectrumSize> spectrum{1,2,3,4};
+	for (auto factor : { 1.0, 0.1, 1.5 }) {
+		std::cout << toStringClean(spectrum, factor) << std::endl;
+		REQUIRE(toStringClean(spectrum, factor) == toString(spectrum, factor));
+	}
+	for (auto factor :{ 1, MAXINT, -1, MAXLONG }) {
+		std::cout << toStringClean(spectrum, factor) << std::endl;
+		REQUIRE( toStringClean(spectrum, factor) == toString(spectrum, factor) );
 	}
 }
