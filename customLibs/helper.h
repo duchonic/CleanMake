@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <array>
 
 #include "customLibs/timeUtil.h"
 

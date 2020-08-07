@@ -11,6 +11,7 @@ add_executable (
 	#catchVirtual.cpp
 	#catchJson.cpp
 	catchRecursion.cpp
+	catchToString.cpp
 
 )
 
