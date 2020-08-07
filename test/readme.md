@@ -1,4 +1,4 @@
-# toSerial
+# toString
 
 convert a array of long/integer to a string
 

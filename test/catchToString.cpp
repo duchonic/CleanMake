@@ -10,7 +10,7 @@ const int spectrumSize = 4;
 std::string toString(const std::array<long, spectrumSize>& spec, const double iRepFactor) {
 	// Convert to a string
 	// C-String of maximal size
-	static char szString[ (10+1) * spectrumSize];
+	static char szString[ (10+0) * spectrumSize];
 	// One item in c representation
 	static char szDigits[10];
 	int uiStringArrayPos = 0;
