@@ -23,7 +23,7 @@ SCENARIO("test some timer") {
 		itval.it_interval.tv_nsec = nsec;
 		itval.it_value.tv_sec = sec;
 		itval.it_value.tv_nsec = nsec;
-		
+			
 		int ret = timerfd_settime(fd, 0, &itval, NULL);
 
 		REQUIRE(ret >= 0);

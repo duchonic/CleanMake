@@ -9,6 +9,16 @@
 
 unsigned long smalestQuantum = MAXINT;
 
+
+void showVec(std::vector<int> data, std::string title) {
+	std::cout << title << " : " ;
+	for (int val : data) {
+		std::cout << val << " ";
+	}
+	std::cout << std::endl;
+}
+
+
 void Combi(std::vector<int> input, int reqLen, int currentBit, int currLen)
 // print the all possible combination of given array set
 {
@@ -19,26 +29,26 @@ void Combi(std::vector<int> input, int reqLen, int currentBit, int currLen)
 		//std::cout << check << " " << std::endl;
 		
 		int sum=0;
-		unsigned long quantumEntanglement=0;
-		std::string output{""};
+		std::vector<int> output;
+		std::vector<int> rest;
+
 		for (   int i = 0; i < input.size(); i++) {
 			if (check.test(i)) {
-				output += std::to_string( input[i] ) + " ";
+				output.push_back( input[i] ) ;
 				sum += input[i];
-				if (quantumEntanglement) {
-					quantumEntanglement *= input[i];
-				}
-				else {
-					quantumEntanglement = input[i];
-				}
+			}
+			else {
+				rest.push_back( input[i] );
 			}
 		}
-		if (sum == 768) {
-			std::cout << output << " with qe:" << quantumEntanglement << std::endl;
-			if (quantumEntanglement < smalestQuantum) {
-				std::cout << "smallest: " << quantumEntanglement << std::endl;
-				smalestQuantum = quantumEntanglement;
-			}
+		if (sum == 20) {
+			std::cout << "found a solution: " << std::endl;
+			showVec(output, " out: ");
+			showVec(rest, " rest: ");
+			Combi(rest, 3, 0, 0);
+		}
+		else {
+
 		}
 		return;
 	}
@@ -57,8 +67,8 @@ void Combi(std::vector<int> input, int reqLen, int currentBit, int currLen)
 
 
 TEST_CASE("combi from tutorialspoint.com") {
-	//std::vector<int> input{1,2,3,4,5,7,8,9,10,11};
-	std::vector<int> input{ 1,2,3,5,7,13,17,19,23,29,31,37,41,43,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113};
+	std::vector<int> input{1,2,3,4,5,7,8,9,10,11};
+	//std::vector<int> input{ 1,2,3,5,7,13,17,19,23,29,31,37,41,43,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113};
 	
 	int sum=0;
 	for (auto val : input) {

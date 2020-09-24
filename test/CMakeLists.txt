@@ -10,9 +10,9 @@ add_executable (
 	#catchThread.cpp
 	#catchVirtual.cpp
 	#catchJson.cpp
-	catchRecursion.cpp
-	catchToString.cpp
-
+	#catchRecursion.cpp
+	#catchToString.cpp
+	#catchParameter.cpp
 )
 
 if (WIN32)
