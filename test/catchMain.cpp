@@ -9,7 +9,7 @@
 
 TEST_CASE(R"(cpp17/20 tests)"){
 	//auto input = std::to_array("123"); // cpp20
-	std::array<char,3> input{ '1','2,','3' }; // cpp11
+	std::array<char,3> input = { '1','2','3' }; // cpp11
 	int sum = 0;
 	for (auto val : input){
 		std::cout << val;
