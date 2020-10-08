@@ -108,3 +108,8 @@ TEST_CASE(day) {
 	cur();
 }
 
+TEST_CASE("bfilipek day3"){
+	auto funcPtr = +[]{};
+	static_assert(std::is_same<decltype(funcPtr), void (*)()>::value);
+}
+
