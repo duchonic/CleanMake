@@ -14,7 +14,7 @@ TEST_CASE("string to array old") {
 
 	const std::array<std::string, 2> input{ 
 		std::string("1,2,3"),
-		std::string("1,333333333333333333333,??"), 
+		std::string("1,333333333333333333333,.?"), 
 	};
 	
 	for (std::string input : input) {
