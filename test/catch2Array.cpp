@@ -13,11 +13,12 @@ typedef double SPEC_VALUE;
 TEST_CASE("string to array old") {
 
 	const std::array<std::string, 2> input{ 
-		std::string("1,2,3"),
-		std::string("1,333333333333333333333,.?"), 
+		std::string("111,222,333"),
+		std::string("1,333333333333333333333,??"), 
 	};
 	
 	for (std::string input : input) {
+		INFO_LOG << "input is: " << input << std::endl;
 		
 		std::string subStr;
 		unsigned int iPos = 0;
@@ -28,6 +29,7 @@ TEST_CASE("string to array old") {
 		//while (i < SPECTRUM_SIZE) {
 		while(true){
 			iPos = input.find(",", iOldPos);
+			DEBUG_LOG << iPos << " " << std::string::npos << std::endl;
 			if (iPos == std::string::npos) {
 				// Last element
 				subStr = input.substr(iOldPos);
@@ -36,8 +38,9 @@ TEST_CASE("string to array old") {
 			}
 			else {
 				subStr = input.substr(iOldPos, iPos - iOldPos);
-				dArrLocalValue[i++] = static_cast<SPEC_VALUE>(atoi(subStr.c_str()));
+				DEBUG_LOG << "subStr: " << subStr << " i:" << i << std::endl;
 				REQUIRE(i < SPECTRUM_SIZE);
+				dArrLocalValue[i++] = static_cast<SPEC_VALUE>(atoi(subStr.c_str()));
 			}
 			iOldPos = iPos + 1;
 		}
