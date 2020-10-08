@@ -1,6 +1,7 @@
 add_executable (
 	testing
 	catchMain.cpp
+	catch2Array.cpp
 	#catchStateMachine.cpp
 	#catchClass.cpp
 	#catchSerial.cpp
